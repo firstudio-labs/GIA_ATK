@@ -118,20 +118,21 @@
                         href="#" role="button" aria-haspopup="false" data-bs-auto-close="outside"
                         aria-expanded="false">
                         @php
+                            use Illuminate\Support\Str;
                             $fotoProfile = Auth::user()->foto_profile ?? null;
                             if ($fotoProfile) {
-                                // Jika sudah berupa URL lengkap
+                                // Jika sudah berupa URL lengkap, contoh: dari login Google
                                 if (Str::startsWith($fotoProfile, ['http://', 'https://'])) {
                                     $srcFoto = $fotoProfile;
                                 } else {
-                                    // Jika path lokal, gunakan asset()
-                                    $srcFoto = asset('upload/foto_profile/' . $fotoProfile);
+                                    // Jika dari upload sendiri, path local dari public/uploads/foto_profile
+                                    $srcFoto = asset('uploads/foto_profile/' . $fotoProfile);
                                 }
                             } else {
                                 $srcFoto = asset('env/logo.png');
                             }
                         @endphp
-                        <img src="{{ $srcFoto }}" alt="user-image" class="user-avtar">
+                        <img src="{{ $srcFoto }}" alt="user-image" class="user-avtar rounded-circle" style="object-fit:cover;width:40px;height:40px;">
                         <span>{{ Auth::user()->name }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">

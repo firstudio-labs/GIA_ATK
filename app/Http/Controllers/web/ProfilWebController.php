@@ -24,26 +24,33 @@ class ProfilWebController extends Controller
 
         $validator = Validator::make($request->all(), [
             'foto_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => 'required', 
+            'name' => 'required|string|max:255', 
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'username' => 'required|unique:users,username,' . $user->id,
-            'no_wa' => 'required',
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
+            'no_wa' => 'required|string|max:20',
         ]);
 
         if($validator->fails()) {
-            Alert::error('Terjadi kesalahan! ' . $validator->errors()->first());
-            return redirect()->back();
+            Alert::toast('Terjadi kesalahan saat mengupdate profil!', 'error')->position('top-end');
+            return redirect()->back()->withErrors($validator)->withInput()->with('error', $validator->errors()->first());
         }
 
-        $data = $request->except(['password', 'foto_profile']);
+        $data = $request->except(['password', 'foto_profile', '_token', '_method']);
 
-        // Proses upload foto_profile ke folder public
+        // Proses upload foto_profile
         if ($request->hasFile('foto_profile')) {
             $file = $request->file('foto_profile');
-            $filename = 'profile_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/foto_profile'), $filename);
+            $filename = 'profile_' . time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            
+            // Pastikan folder ada
+            $path = public_path('uploads/foto_profile');
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            
+            $file->move($path, $filename);
 
-            // Hapus foto lama jika ada dan bukan default
+            // Hapus foto lama jika ada
             if ($user->foto_profile && file_exists(public_path('uploads/foto_profile/' . $user->foto_profile))) {
                 @unlink(public_path('uploads/foto_profile/' . $user->foto_profile));
             }
@@ -51,12 +58,37 @@ class ProfilWebController extends Controller
             $data['foto_profile'] = $filename;
         }
 
-        if($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
+        $user->update($data);
+        Alert::toast('Profil berhasil diperbarui.', 'success')->position('top-end');
+        return redirect()->back();
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        if($validator->fails()) {
+            Alert::toast('Terjadi kesalahan saat mengupdate password!', 'error')->position('top-end');
+            return redirect()->back()->withErrors($validator)->withInput()->with('error', $validator->errors()->first());
         }
 
-        $user->update($data);
-        Alert::success('Profil berhasil diubah!');
+        $user = User::find(auth()->user()->id);
+
+        // Cek password lama
+        if (!Hash::check($request->current_password, $user->password)) {
+            Alert::toast('Password lama tidak sesuai.', 'error')->position('top-end');
+            return redirect()->back();
+        }
+
+        // Update password baru
+        $user->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        Alert::toast('Password berhasil diubah.', 'success')->position('top-end');
         return redirect()->back();
     }
 }

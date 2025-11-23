@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Profil;
+use App\Models\WhatsappApi;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -14,24 +16,27 @@ class ForgotPasswordController extends Controller
 {
     public function showRequestOtpForm()
     {
-        return view('auth.resetpassword.request-otp');
+        $profil = Profil::first();
+        return view('auth.resetpassword.request-otp', compact('profil'));
     }
 
     public function showVerifyOtpForm()
     {
-        return view('auth.resetpassword.verify-otp');
+        $profil = Profil::first();
+        return view('auth.resetpassword.verify-otp', compact('profil'));
     }
 
     public function showResetPasswordForm(Request $request)
     {
         $no_wa = $request->no_wa ?? session('no_wa');
+        $profil = Profil::first();
         
         if (!$no_wa) {
             Alert::error('Error', 'Nomor WhatsApp tidak ditemukan');
             return redirect()->route('forgot-password');
         }
         
-        return view('auth.resetpassword.reset-password', ['no_wa' => $no_wa]);
+        return view('auth.resetpassword.reset-password', ['no_wa' => $no_wa, 'profil' => $profil]);
     }
 
     public function requestOtp(Request $request)
@@ -106,7 +111,8 @@ class ForgotPasswordController extends Controller
 
     private function sendWhatsapp($no_wa, $message)
     {
-        $token = 'vZHB9GmpxwtU4CizgeG9';
+        $whatsappApi = WhatsappApi::first();
+        $token = $whatsappApi->access_token;
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => 'https://api.fonnte.com/send',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Profil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,8 @@ class RegisterController extends Controller
 {
     public function showRegisterForm()
     {
-        return view('auth.register');
+        $profil = Profil::first();
+        return view('auth.register', compact('profil'));
     }
 
     public function register(Request $request)

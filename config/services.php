@@ -38,5 +38,9 @@ return [
         'scopes'        => ['openid', 'profile', 'email'],
     ],
 
+    'hcaptcha' => [
+        'site_key' => env('HCAPTCHA_SITE_KEY'),
+        'secret' => env('HCAPTCHA_SECRET'),
+    ],
 
 ];

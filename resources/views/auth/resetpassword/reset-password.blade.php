@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
-
+@php
+  $profil = \App\Models\Profil::first();
+@endphp
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reset Password | StarterKit-v2</title>
-  <link rel="icon" href="{{ asset('admin') }}/assets/images/favicon.svg" type="image/x-icon">
+  <title>Reset Password | {{ $profil->nama_perusahaan ?? 'StarterKit-v2' }}</title>
+  @if ($profil && $profil->logo_perusahaan)
+    <link rel="icon" href="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" type="image/x-icon">
+  @else
+    <link rel="icon" href="{{ asset('admin') }}/assets/images/favicon.svg" type="image/x-icon">
+  @endif
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
   <link rel="stylesheet" href="{{ asset('admin') }}/assets/fonts/tabler-icons.min.css">
   <link rel="stylesheet" href="{{ asset('admin') }}/assets/fonts/feather.css">
@@ -39,8 +45,12 @@
       <div class="auth-form">
         <div class="auth-header">
           <a href="#" class="d-inline-flex align-items-center text-decoration-none">
-            <img src="{{ asset('env') }}/logo_text.png" alt="StarterKit-v2">
-            <span class="ms-2 h5 mb-0 brand-title text-dark">StarterKit-v2</span>
+            @if($profil && $profil->logo_perusahaan)
+              <img src="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" alt="{{ $profil->nama_perusahaan ?? 'Logo' }}" style="height: 42px;">
+            @else
+              <img src="{{ asset('env') }}/logo_text.png" alt="Logo">
+            @endif
+            <span class="ms-2 h5 mb-0 brand-title text-dark">{{ $profil->nama_perusahaan ?? 'StarterKit-v2' }}</span>
           </a>
         </div>
         <div class="card my-5 shadow-lg border-0 rounded-4">
@@ -82,13 +92,12 @@
         </div>
         <div class="auth-footer row align-items-center">
           <div class="col my-1">
-            <p class="m-0">&copy; {{ date('Y') }} <span class="fw-semibold">StarterKit-v2</span></p>
+            <p class="m-0">&copy; {{ date('Y') }} <span class="fw-semibold">{{ $profil->nama_perusahaan ?? 'StarterKit-v2' }}</span></p>
           </div>
           <div class="col-auto my-1">
             <ul class="list-inline footer-link mb-0">
               <li class="list-inline-item"><a href="{{ url('/') }}">Home</a></li>
-              <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-              <li class="list-inline-item"><a href="#">Contact</a></li>
+              <li class="list-inline-item"><a href="{{ route('kontak.index') }}">Contact</a></li>
             </ul>
           </div>
         </div>

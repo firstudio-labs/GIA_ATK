@@ -4,6 +4,7 @@ namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Profil;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -95,13 +96,14 @@ class GoogleController extends Controller
     {
         $user_id = $request->query('user_id');
         $user = User::where('id', $user_id)->first();
+        $profil = Profil::first();
 
         if (!$user) {
             Alert::error('Data Google tidak ditemukan.', 'Silakan login dengan Google terlebih dahulu.');
             return redirect('/login');
         }
 
-        return view('auth.complete-google-register', ['user' => $user]);
+        return view('auth.complete-google-register', ['user' => $user, 'profil' => $profil]);
     }
 
     public function completeRegister(Request $request)

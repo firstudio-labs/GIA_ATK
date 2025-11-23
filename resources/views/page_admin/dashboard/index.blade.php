@@ -27,293 +27,318 @@
                 <div class="col-md-6 col-xl-3">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="mb-2 f-w-400 text-muted">Total Page Views</h6>
-                            <h4 class="mb-3">4,42,236 <span class="badge bg-light-primary border border-primary"><i
-                                        class="ti ti-trending-up"></i> 59.3%</span></h4>
-                            <p class="mb-0 text-muted text-sm">You made an extra <span class="text-primary">35,000</span>
-                                this year
+                            <h6 class="mb-2 f-w-400 text-muted">Total Layanan</h6>
+                            <h4 class="mb-3">{{ number_format($totalLayanan, 0, ',', '.') }}</h4>
+                            <p class="mb-0 text-muted text-sm">
+                                <a href="{{ route('manage-layanan.index') }}" class="text-primary">Lihat Semua Layanan</a>
                             </p>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="mb-2 f-w-400 text-muted">Total Produk</h6>
+                            <h4 class="mb-3">{{ number_format($totalProduk, 0, ',', '.') }} 
+                                <span class="badge bg-light-success border border-success">{{ $totalProdukAktif }} Aktif</span>
+                            </h4>
+                            <p class="mb-0 text-muted text-sm">
+                                <a href="{{ route('manage-produk.index') }}" class="text-primary">Lihat Semua Produk</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="mb-2 f-w-400 text-muted">Total Pesanan</h6>
+                            <h4 class="mb-3">{{ number_format($totalPesanan, 0, ',', '.') }} 
+                                <span class="badge bg-light-primary border border-primary">{{ $pesananBulanIni }} Bulan Ini</span>
+                            </h4>
+                            <p class="mb-0 text-muted text-sm">
+                                <a href="{{ route('daftar-riwayat-pesanan.index') }}" class="text-primary">Lihat Semua Pesanan</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="mb-2 f-w-400 text-muted">Total Pendapatan</h6>
+                            <h4 class="mb-3">Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</h4>
+                            <p class="mb-0 text-muted text-sm">
+                                Bulan ini: <span class="text-success">Rp {{ number_format($pendapatanBulanIni, 0, ',', '.') }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Statistik Tambahan -->
                 <div class="col-md-6 col-xl-3">
                     <div class="card">
                         <div class="card-body">
                             <h6 class="mb-2 f-w-400 text-muted">Total Users</h6>
-                            <h4 class="mb-3">78,250 <span class="badge bg-light-success border border-success"><i
-                                        class="ti ti-trending-up"></i> 70.5%</span></h4>
-                            <p class="mb-0 text-muted text-sm">You made an extra <span class="text-success">8,900</span>
-                                this year</p>
+                            <h4 class="mb-3">{{ number_format($totalUsers, 0, ',', '.') }}</h4>
+                            <p class="mb-0 text-muted text-sm">Total pengguna terdaftar</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-3">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="mb-2 f-w-400 text-muted">Total Order</h6>
-                            <h4 class="mb-3">18,800 <span class="badge bg-light-warning border border-warning"><i
-                                        class="ti ti-trending-down"></i> 27.4%</span></h4>
-                            <p class="mb-0 text-muted text-sm">You made an extra <span class="text-warning">1,943</span>
-                                this year</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h6 class="mb-2 f-w-400 text-muted">Total Sales</h6>
-                            <h4 class="mb-3">$35,078 <span class="badge bg-light-danger border border-danger"><i
-                                        class="ti ti-trending-down"></i> 27.4%</span></h4>
-                            <p class="mb-0 text-muted text-sm">You made an extra <span class="text-danger">$20,395</span>
-                                this year
+                            <h6 class="mb-2 f-w-400 text-muted">Total Section</h6>
+                            <h4 class="mb-3">{{ number_format($totalSection, 0, ',', '.') }}</h4>
+                            <p class="mb-0 text-muted text-sm">
+                                <a href="{{ route('manage-section.index') }}" class="text-primary">Lihat Semua Section</a>
                             </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="mb-2 f-w-400 text-muted">Produk Aktif</h6>
+                            <h4 class="mb-3">{{ number_format($totalProdukAktif, 0, ',', '.') }}</h4>
+                            <p class="mb-0 text-muted text-sm">Produk yang tersedia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="mb-2 f-w-400 text-muted">Pesanan 7 Hari</h6>
+                            <h4 class="mb-3">{{ number_format($pesanan7HariTerakhir, 0, ',', '.') }}</h4>
+                            <p class="mb-0 text-muted text-sm">Pesanan minggu ini</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-12 col-xl-8">
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="mb-0">Unique Visitor</h5>
-                        <ul class="nav nav-pills justify-content-end mb-0" id="chart-tab-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="chart-tab-home-tab" data-bs-toggle="pill"
-                                    data-bs-target="#chart-tab-home" type="button" role="tab"
-                                    aria-controls="chart-tab-home" aria-selected="true">Month</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="chart-tab-profile-tab" data-bs-toggle="pill"
-                                    data-bs-target="#chart-tab-profile" type="button" role="tab"
-                                    aria-controls="chart-tab-profile" aria-selected="false">Week</button>
-                            </li>
-                        </ul>
+                        <h5 class="mb-0">Statistik Pesanan (6 Bulan Terakhir)</h5>
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <div class="tab-content" id="chart-tab-tabContent">
-                                <div class="tab-pane" id="chart-tab-home" role="tabpanel"
-                                    aria-labelledby="chart-tab-home-tab" tabindex="0">
-                                    <div id="visitor-chart-1"></div>
-                                </div>
-                                <div class="tab-pane show active" id="chart-tab-profile" role="tabpanel"
-                                    aria-labelledby="chart-tab-profile-tab" tabindex="0">
-                                    <div id="visitor-chart"></div>
-                                </div>
-                            </div>
+                            <div id="pesanan-chart"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12 col-xl-4">
-                    <h5 class="mb-3">Income Overview</h5>
+                    <h5 class="mb-3">Statistik Produk</h5>
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="mb-2 f-w-400 text-muted">This Week Statistics</h6>
-                            <h3 class="mb-3">$7,650</h3>
-                            <div id="income-overview-chart"></div>
+                            <h6 class="mb-2 f-w-400 text-muted">Status Produk</h6>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h3 class="mb-0">{{ $totalProdukAktif }}</h3>
+                                    <p class="mb-0 text-muted small">Produk Aktif</p>
+                                </div>
+                                <div>
+                                    <h3 class="mb-0">{{ $totalProdukNonaktif }}</h3>
+                                    <p class="mb-0 text-muted small">Produk Nonaktif</p>
+                                </div>
+                            </div>
+                            <div id="produk-chart"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-12 col-xl-8">
-                    <h5 class="mb-3">Recent Orders</h5>
+                    <h5 class="mb-3">Pesanan Terbaru</h5>
                     <div class="card tbl-card">
                         <div class="card-body">
+                            @if($pesananTerbaru->count() > 0)
                             <div class="table-responsive">
                                 <table class="table table-hover table-borderless mb-0">
                                     <thead>
                                         <tr>
-                                            <th>TRACKING NO.</th>
-                                            <th>PRODUCT NAME</th>
-                                            <th>TOTAL ORDER</th>
-                                            <th>STATUS</th>
-                                            <th class="text-end">TOTAL AMOUNT</th>
+                                            <th>ORDER ID</th>
+                                            <th>CUSTOMER</th>
+                                            <th>TANGGAL</th>
+                                            <th>QUANTITY</th>
+                                            <th class="text-end">TOTAL</th>
+                                            <th class="text-end">AKSI</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($pesananTerbaru as $pesanan)
                                         <tr>
-                                            <td><a href="#" class="text-muted">84564564</a></td>
-                                            <td>Camera Lens</td>
-                                            <td>40</td>
-                                            <td><span class="d-flex align-items-center gap-2"><i
-                                                        class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
+                                            <td><a href="{{ route('daftar-riwayat-pesanan.show', $pesanan->id) }}" class="text-primary">{{ $pesanan->order_id }}</a></td>
+                                            <td>{{ $pesanan->user->name ?? 'N/A' }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($pesanan->created_at)->format('d M Y') }}</td>
+                                            <td><span class="badge bg-primary">{{ $pesanan->quantity }} item</span></td>
+                                            <td class="text-end">Rp {{ number_format($pesanan->total, 0, ',', '.') }}</td>
+                                            <td class="text-end">
+                                                <a href="{{ route('daftar-riwayat-pesanan.show', $pesanan->id) }}" class="btn btn-sm btn-info">
+                                                    <i class="ti ti-eye"></i>
+                                                </a>
                                             </td>
-                                            <td class="text-end">$40,570</td>
                                         </tr>
-                                        <tr>
-                                            <td><a href="#" class="text-muted">84564564</a></td>
-                                            <td>Laptop</td>
-                                            <td>300</td>
-                                            <td><span class="d-flex align-items-center gap-2"><i
-                                                        class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                                            </td>
-                                            <td class="text-end">$180,139</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#" class="text-muted">84564564</a></td>
-                                            <td>Mobile</td>
-                                            <td>355</td>
-                                            <td><span class="d-flex align-items-center gap-2"><i
-                                                        class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span>
-                                            </td>
-                                            <td class="text-end">$180,139</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#" class="text-muted">84564564</a></td>
-                                            <td>Camera Lens</td>
-                                            <td>40</td>
-                                            <td><span class="d-flex align-items-center gap-2"><i
-                                                        class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                                            </td>
-                                            <td class="text-end">$40,570</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#" class="text-muted">84564564</a></td>
-                                            <td>Laptop</td>
-                                            <td>300</td>
-                                            <td><span class="d-flex align-items-center gap-2"><i
-                                                        class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                                            </td>
-                                            <td class="text-end">$180,139</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#" class="text-muted">84564564</a></td>
-                                            <td>Mobile</td>
-                                            <td>355</td>
-                                            <td><span class="d-flex align-items-center gap-2"><i
-                                                        class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span>
-                                            </td>
-                                            <td class="text-end">$180,139</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#" class="text-muted">84564564</a></td>
-                                            <td>Camera Lens</td>
-                                            <td>40</td>
-                                            <td><span class="d-flex align-items-center gap-2"><i
-                                                        class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                                            </td>
-                                            <td class="text-end">$40,570</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#" class="text-muted">84564564</a></td>
-                                            <td>Laptop</td>
-                                            <td>300</td>
-                                            <td><span class="d-flex align-items-center gap-2"><i
-                                                        class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                                            </td>
-                                            <td class="text-end">$180,139</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#" class="text-muted">84564564</a></td>
-                                            <td>Mobile</td>
-                                            <td>355</td>
-                                            <td><span class="d-flex align-items-center gap-2"><i
-                                                        class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span>
-                                            </td>
-                                            <td class="text-end">$180,139</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#" class="text-muted">84564564</a></td>
-                                            <td>Mobile</td>
-                                            <td>355</td>
-                                            <td><span class="d-flex align-items-center gap-2"><i
-                                                        class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span>
-                                            </td>
-                                            <td class="text-end">$180,139</td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
+                            @else
+                            <div class="text-center py-4">
+                                <p class="text-muted">Belum ada pesanan</p>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12 col-xl-4">
-                    <h5 class="mb-3">Analytics Report</h5>
+                    <h5 class="mb-3">Ringkasan Statistik</h5>
                     <div class="card">
                         <div class="list-group list-group-flush">
-                            <a href="#"
-                                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Company
-                                Finance Growth<span class="h5 mb-0">+45.14%</span></a>
-                            <a href="#"
-                                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Company
-                                Expenses Ratio<span class="h5 mb-0">0.58%</span></a>
-                            <a href="#"
-                                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Business
-                                Risk Cases<span class="h5 mb-0">Low</span></a>
+                            <a href="{{ route('manage-layanan.index') }}"
+                                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
+                                Total Layanan
+                                <span class="h5 mb-0">{{ number_format($totalLayanan, 0, ',', '.') }}</span>
+                            </a>
+                            <a href="{{ route('manage-section.index') }}"
+                                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
+                                Total Section
+                                <span class="h5 mb-0">{{ number_format($totalSection, 0, ',', '.') }}</span>
+                            </a>
+                            <a href="{{ route('manage-produk.index') }}"
+                                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
+                                Total Produk
+                                <span class="h5 mb-0">{{ number_format($totalProduk, 0, ',', '.') }}</span>
+                            </a>
                         </div>
                         <div class="card-body px-2">
-                            <div id="analytics-report-chart"></div>
+                            <h6 class="mb-2">Pendapatan Bulan Ini</h6>
+                            <h3 class="mb-0 text-success">Rp {{ number_format($pendapatanBulanIni, 0, ',', '.') }}</h3>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-12 col-xl-8">
-                    <h5 class="mb-3">Sales Report</h5>
+                    <h5 class="mb-3">Grafik Pendapatan (6 Bulan Terakhir)</h5>
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="mb-2 f-w-400 text-muted">This Week Statistics</h6>
-                            <h3 class="mb-0">$7,650</h3>
-                            <div id="sales-report-chart"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-xl-4">
-                    <h5 class="mb-3">Transaction History</h5>
-                    <div class="card">
-                        <div class="list-group list-group-flush">
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0">
-                                        <div class="avtar avtar-s rounded-circle text-success bg-light-success">
-                                            <i class="ti ti-gift f-18"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h6 class="mb-1">Order #002434</h6>
-                                        <p class="mb-0 text-muted">Today, 2:00 AM</P>
-                                    </div>
-                                    <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">+ $1,430</h6>
-                                        <p class="mb-0 text-muted">78%</P>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0">
-                                        <div class="avtar avtar-s rounded-circle text-primary bg-light-primary">
-                                            <i class="ti ti-message-circle f-18"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h6 class="mb-1">Order #984947</h6>
-                                        <p class="mb-0 text-muted">5 August, 1:45 PM</P>
-                                    </div>
-                                    <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">- $302</h6>
-                                        <p class="mb-0 text-muted">8%</P>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0">
-                                        <div class="avtar avtar-s rounded-circle text-danger bg-light-danger">
-                                            <i class="ti ti-settings f-18"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h6 class="mb-1">Order #988784</h6>
-                                        <p class="mb-0 text-muted">7 hours ago</P>
-                                    </div>
-                                    <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">- $682</h6>
-                                        <p class="mb-0 text-muted">16%</P>
-                                    </div>
-                                </div>
-                            </a>
+                            <h6 class="mb-2 f-w-400 text-muted">Total Pendapatan: Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</h6>
+                            <div id="pendapatan-chart"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            // Chart Pesanan
+            var pesananOptions = {
+                series: [{
+                    name: 'Jumlah Pesanan',
+                    data: @json($chartPesanan)
+                }],
+                chart: {
+                    type: 'area',
+                    height: 350,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+                xaxis: {
+                    categories: @json($chartLabels)
+                },
+                colors: ['#5D87FF'],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.9,
+                        stops: [0, 90, 100]
+                    }
+                }
+            };
+            var pesananChart = new ApexCharts(document.querySelector("#pesanan-chart"), pesananOptions);
+            pesananChart.render();
+
+            // Chart Produk (Donut Chart)
+            var produkOptions = {
+                series: [{{ $totalProdukAktif }}, {{ $totalProdukNonaktif }}],
+                chart: {
+                    type: 'donut',
+                    height: 250
+                },
+                labels: ['Produk Aktif', 'Produk Nonaktif'],
+                colors: ['#00C853', '#FF5252'],
+                legend: {
+                    position: 'bottom'
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val) {
+                        return val.toFixed(1) + "%"
+                    }
+                }
+            };
+            var produkChart = new ApexCharts(document.querySelector("#produk-chart"), produkOptions);
+            produkChart.render();
+
+            // Chart Pendapatan
+            var pendapatanOptions = {
+                series: [{
+                    name: 'Pendapatan (Rp)',
+                    data: @json($chartPendapatan)
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        horizontal: false,
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: @json($chartLabels)
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function (val) {
+                            return 'Rp ' + (val / 1000).toFixed(0) + 'K';
+                        }
+                    }
+                },
+                colors: ['#00C853'],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: 'vertical',
+                        shadeIntensity: 0.3,
+                        gradientToColors: ['#00E676'],
+                        inverseColors: false,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 100]
+                    }
+                }
+            };
+            var pendapatanChart = new ApexCharts(document.querySelector("#pendapatan-chart"), pendapatanOptions);
+            pendapatanChart.render();
+        }, 500);
+    });
+</script>
 @endsection

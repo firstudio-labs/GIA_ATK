@@ -1,4 +1,0 @@
-background-color: #ffadb7;
-FD969A
-
-#fee255

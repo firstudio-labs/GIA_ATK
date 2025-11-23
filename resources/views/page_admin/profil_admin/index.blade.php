@@ -40,21 +40,22 @@
                                     <div class="col-12 text-center">
                                         <div class="position-relative d-inline-block">
                                             <div class="avatar avatar-xxl rounded-circle border">
-                                                @if($data->foto_profile)
-                                                    @php
-                                                        $fotoProfile = $data->foto_profile ?? null;
-                                                        if ($fotoProfile) {
-                                                            // Jika sudah berupa URL lengkap
-                                                            if (Str::startsWith($fotoProfile, ['http://', 'https://'])) {
-                                                                $srcFoto = $fotoProfile;
-                                                            } else {
-                                                                // Jika path lokal, gunakan asset()
-                                                                $srcFoto = asset('upload/foto_profile/' . $fotoProfile);
-                                                            }
+                                                @php
+                                                    use Illuminate\Support\Str;
+                                                    $fotoProfile = $data->foto_profile ?? null;
+                                                    if ($fotoProfile) {
+                                                        // Jika sudah berupa URL lengkap (misal dari login Google)
+                                                        if (Str::startsWith($fotoProfile, ['http://', 'https://'])) {
+                                                            $srcFoto = $fotoProfile;
                                                         } else {
-                                                            $srcFoto = asset('env/logo.png');
+                                                            // Jika dari upload sendiri, path local dari public/uploads/foto_profile
+                                                            $srcFoto = asset('uploads/foto_profile/' . $fotoProfile);
                                                         }
-                                                    @endphp
+                                                    } else {
+                                                        $srcFoto = asset('env/logo.png');
+                                                    }
+                                                @endphp
+                                                @if($fotoProfile)
                                                     <img src="{{ $srcFoto }}" 
                                                          alt="Foto Profile" 
                                                          class="avatar-img rounded-circle"
