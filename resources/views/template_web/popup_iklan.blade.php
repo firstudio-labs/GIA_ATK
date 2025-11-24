@@ -58,8 +58,13 @@
 @endif
 
 <style>
+    .popup-iklan-modal {
+        z-index: 1055;
+    }
+
     .popup-iklan-modal .modal-dialog {
         max-width: 350px;
+        margin: 1rem auto;
     }
 
     .popup-iklan-modal .modal-content {
@@ -67,6 +72,20 @@
         overflow: hidden;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         border: none;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    /* Pastikan body tetap bisa di-scroll */
+    body.modal-open {
+        overflow: hidden !important;
+        padding-right: 0 !important;
+    }
+
+    /* Pastikan backdrop tidak menutupi seluruh layar */
+    .popup-iklan-modal .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1050;
     }
 
     .popup-iklan-modal .modal-header {
@@ -209,9 +228,29 @@
             font-size: 0.75rem;
         }
     }
+
+    /* Pastikan modal tidak full screen dan body tetap bisa di-scroll */
+    html:not(.modal-open) {
+        overflow-y: auto !important;
+    }
+
+    body:not(.modal-open) {
+        overflow-y: auto !important;
+        padding-right: 0 !important;
+    }
 </style>
 
 <script>
+    // Fungsi untuk memastikan body bisa di-scroll
+    function enableBodyScroll() {
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+        document.body.classList.remove('modal-open');
+        // Hapus semua backdrop yang mungkin masih ada
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(backdrop => backdrop.remove());
+    }
+
     // Fungsi untuk menampilkan popup iklan
     function showPopupIklan() {
         const popupModal = document.getElementById('popupIklan');
@@ -236,6 +275,21 @@
             const modalInstance = new bootstrap.Modal(popupModal, {
                 backdrop: 'static',
                 keyboard: false
+            });
+            
+            // Event listener untuk saat modal ditutup
+            popupModal.addEventListener('hidden.bs.modal', function() {
+                enableBodyScroll();
+            });
+
+            // Event listener untuk tombol close
+            const closeButtons = popupModal.querySelectorAll('[data-bs-dismiss="modal"]');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    setTimeout(function() {
+                        enableBodyScroll();
+                    }, 100);
+                });
             });
             
             // Delay sedikit untuk memastikan halaman sudah ter-render
@@ -265,6 +319,7 @@
     window.addEventListener('pageshow', function(event) {
         // Jika halaman dimuat dari cache (back/forward)
         if (event.persisted) {
+            enableBodyScroll();
             setTimeout(function() {
                 showPopupIklan();
             }, 500);
@@ -277,10 +332,18 @@
         const url = location.href;
         if (url !== lastUrl) {
             lastUrl = url;
+            enableBodyScroll();
             setTimeout(function() {
                 showPopupIklan();
             }, 500);
         }
     }).observe(document, { subtree: true, childList: true });
+
+    // Pastikan body bisa di-scroll saat halaman dimuat
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            enableBodyScroll();
+        }, 100);
+    });
 </script>
 

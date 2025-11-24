@@ -4,6 +4,7 @@
 @php
     $profil = \App\Models\Profil::first();
     $manageInfos = \App\Models\ManageInfo::where('status', 'aktif')->get();
+    $ownerWhatsapp = \App\Models\OwnerWhatsapp::first();
 @endphp
 <head>
     <!-- ========== Meta Tags ========== -->
@@ -105,11 +106,11 @@
     <div class="mouse-cursor cursor-inner"></div>
 
     <!-- Back To Top Start -->
-    <div class="scroll-up">
+    {{-- <div class="scroll-up">
         <svg class="scroll-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
         </svg>
-    </div>
+    </div> --}}
 
     <!-- Offcanvas Area Start -->
     <div class="fix-area">
@@ -168,6 +169,23 @@
     <!-- Footer Section Start -->
     @include('template_web.footer')
 
+    <!-- WhatsApp Floating Button -->
+    @if($ownerWhatsapp && $ownerWhatsapp->no_wa)
+        @php
+            $no_wa_clean = preg_replace('/[^0-9]/', '', $ownerWhatsapp->no_wa);
+            $whatsapp_url = 'https://wa.me/' . $no_wa_clean;
+            if($ownerWhatsapp->template_pesan) {
+                $whatsapp_url .= '?text=' . urlencode($ownerWhatsapp->template_pesan);
+            }
+        @endphp
+        <a href="{{ $whatsapp_url }}" target="_blank" class="whatsapp-float" title="Hubungi Kami via WhatsApp">
+            <div class="whatsapp-float-icon">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+            <span class="whatsapp-float-pulse"></span>
+        </a>
+    @endif
+
     <!-- SweetAlert2 Alert -->
     @include('sweetalert::alert')
 
@@ -206,6 +224,93 @@
     <script src="{{ asset('web') }}/assets/js/main.js"></script>
     <!--<< SweetAlert2 JS >>-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- WhatsApp Float Button Styles -->
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #20BA5A;
+            transform: scale(1.1);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp-float-icon {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .whatsapp-float-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #25D366;
+            opacity: 0.6;
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes ping {
+            75%, 100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                bottom: 15px;
+                right: 15px;
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 10px;
+                right: 10px;
+                font-size: 24px;
+            }
+        }
+    </style>
 </body>
 
 </html>
