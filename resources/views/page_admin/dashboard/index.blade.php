@@ -27,17 +27,6 @@
                 <div class="col-md-6 col-xl-3">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="mb-2 f-w-400 text-muted">Total Layanan</h6>
-                            <h4 class="mb-3">{{ number_format($totalLayanan, 0, ',', '.') }}</h4>
-                            <p class="mb-0 text-muted text-sm">
-                                <a href="{{ route('manage-layanan.index') }}" class="text-primary">Lihat Semua Layanan</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
                             <h6 class="mb-2 f-w-400 text-muted">Total Produk</h6>
                             <h4 class="mb-3">{{ number_format($totalProduk, 0, ',', '.') }} 
                                 <span class="badge bg-light-success border border-success">{{ $totalProdukAktif }} Aktif</span>
@@ -190,11 +179,6 @@
                     <h5 class="mb-3">Ringkasan Statistik</h5>
                     <div class="card">
                         <div class="list-group list-group-flush">
-                            <a href="{{ route('manage-layanan.index') }}"
-                                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
-                                Total Layanan
-                                <span class="h5 mb-0">{{ number_format($totalLayanan, 0, ',', '.') }}</span>
-                            </a>
                             <a href="{{ route('manage-section.index') }}"
                                 class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
                                 Total Section

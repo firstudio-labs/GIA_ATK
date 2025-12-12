@@ -48,7 +48,15 @@
                   <div class="col-md-8">
                     <div class="form-group">
                       <label class="form-label">Nama Section <span class="text-danger">*</span></label>
-                      <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $section->name) }}" required>
+                      <select name="name" class="form-control @error('name') is-invalid @enderror" required>
+                        <option value="">-- Pilih Nama Section --</option>
+                        <option value="Top Produk" {{ old('name', $section->name) == 'Top Produk' ? 'selected' : '' }}>Top Produk</option>
+                        <option value="Recent" {{ old('name', $section->name) == 'Recent' ? 'selected' : '' }}>Recent</option>
+                        <option value="Best Seller" {{ old('name', $section->name) == 'Best Seller' ? 'selected' : '' }}>Best Seller</option>
+                        <option value="Top" {{ old('name', $section->name) == 'Top' ? 'selected' : '' }}>Top</option>
+                        <option value="Top Rating" {{ old('name', $section->name) == 'Top Rating' ? 'selected' : '' }}>Top Rating</option>
+                        <option value="Best Product" {{ old('name', $section->name) == 'Best Product' ? 'selected' : '' }}>Best Product</option>
+                      </select>
                       @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                   </div>

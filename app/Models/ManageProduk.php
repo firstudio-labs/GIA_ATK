@@ -13,11 +13,14 @@ class ManageProduk extends Model
         'judul',
         'kategori_id',
         'sub_kategori_id',
+        'model',
+        'tags',
         'gambar_produk',
         'harga',
         'diskon',
         'sku',
         'deskripsi',
+        'detail_produk',
         'status',
         'berat',
         'ukuran',
@@ -25,6 +28,8 @@ class ManageProduk extends Model
     ];
 
     protected $casts = [
+        'model' => 'array',
+        'tags' => 'array',
         'gambar_produk' => 'array',
         'harga' => 'decimal:2',
         'diskon' => 'integer',
@@ -39,5 +44,10 @@ class ManageProduk extends Model
     public function subKategori()
     {
         return $this->belongsTo(ManageSubKategori::class, 'sub_kategori_id');
+    }
+
+    public function keranjangs()
+    {
+        return $this->hasMany(Keranjang::class, 'produk_id');
     }
 }

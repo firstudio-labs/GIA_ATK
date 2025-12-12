@@ -13,15 +13,14 @@ use App\Http\Controllers\admin\{
     DashboardSuperAdminController,
     BerandaController,
     ProfilAdminController,
-    ManageLayananController,
     ManageKategoriController,
     ManageSubKategoriController,
     ManageProdukController,
     ManageSectionController,
     ManageInfoController,
-    ManageArtikelController,
     OwnerWhatsappController,
     DaftarRiwayatPesananController,
+    DaftarCustomerController,
     ApiWhatsappController,
 };
 use App\Http\Controllers\auth\{
@@ -91,17 +90,17 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::get('/dashboard-superadmin', [DashboardSuperAdminController::class, 'index'])->name('dashboard-superadmin');
     Route::resource('beranda', BerandaController::class);
     Route::resource('profil-perusahaan', ProfilPerusahaanController::class);
-    Route::resource('manage-layanan', ManageLayananController::class);
     Route::resource('manage-kategori', ManageKategoriController::class);
     Route::resource('manage-sub-kategori', ManageSubKategoriController::class);
     Route::resource('manage-produk', ManageProdukController::class);
     Route::get('ajax/sub-kategori', [ManageProdukController::class, 'subKategoriByKategori'])->name('ajax.sub-kategori.by-kategori');
     Route::resource('manage-section', ManageSectionController::class);
     Route::resource('manage-info', ManageInfoController::class);
-    Route::resource('manage-artikel', ManageArtikelController::class);
     Route::resource('owner-whatsapp', OwnerWhatsappController::class);
     Route::get('daftar-riwayat-pesanan', [DaftarRiwayatPesananController::class, 'index'])->name('daftar-riwayat-pesanan.index');
     Route::get('daftar-riwayat-pesanan/{id}', [DaftarRiwayatPesananController::class, 'show'])->name('daftar-riwayat-pesanan.show');
+    Route::get('daftar-customer', [DaftarCustomerController::class, 'index'])->name('daftar-customer.index');
+    Route::get('daftar-customer/{id}', [DaftarCustomerController::class, 'show'])->name('daftar-customer.show');
 });
 
 

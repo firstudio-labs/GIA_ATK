@@ -83,6 +83,39 @@
               </div>
 
               <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Model</h6>
+                    @php $models = is_array($manageProduk->model) ? $manageProduk->model : []; @endphp
+                    @if(count($models))
+                      <div class="d-flex flex-wrap gap-2">
+                        @foreach($models as $model)
+                          <span class="badge bg-info">{{ $model }}</span>
+                        @endforeach
+                      </div>
+                    @else
+                      <p class="mb-0 text-muted">-</p>
+                    @endif
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Tags</h6>
+                    @php $tags = is_array($manageProduk->tags) ? $manageProduk->tags : []; @endphp
+                    @if(count($tags))
+                      <div class="d-flex flex-wrap gap-2">
+                        @foreach($tags as $tag)
+                          <span class="badge bg-secondary">{{ $tag }}</span>
+                        @endforeach
+                      </div>
+                    @else
+                      <p class="mb-0 text-muted">-</p>
+                    @endif
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
                 <div class="col-md-12">
                   <div class="mb-3">
                     <h6 class="fw-bold">Deskripsi</h6>
@@ -90,6 +123,17 @@
                   </div>
                 </div>
               </div>
+
+              @if($manageProduk->detail_produk)
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb-3">
+                    <h6 class="fw-bold">Detail Produk</h6>
+                    <p class="mb-0">{!! nl2br(e($manageProduk->detail_produk)) !!}</p>
+                  </div>
+                </div>
+              </div>
+              @endif
 
               <div class="row">
                 <div class="col-md-12">

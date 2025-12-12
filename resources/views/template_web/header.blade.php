@@ -1,183 +1,182 @@
-@php
+ <!-- header start -->
+ @php
     $profil = \App\Models\Profil::first();
-@endphp
-<!-- Header Top Section Start -->
-<div class="header-top-section">
-    <div class="container-fluid">
-        <div class="header-top-wrapper">
-            <ul class="contact-list">
-                <li>
-                    <i class="far fa-envelope"></i>
-                    <a href="mailto:{{ $profil->email_perusahaan }}" class="link">{{ $profil->email_perusahaan }}</a>
-                </li>
-                <li>
-                    <i class="fas fa-map-marker-alt"></i>
-                    {{ $profil->alamat_perusahaan }}
-                </li>
-            </ul>
-            <div class="header-top-right">
-                <div class="social-icon d-flex align-items-center">
-                    <a href="{{ $profil->facebook_perusahaan }}"><i class="fab fa-facebook-f"></i></a>
-                    <a href="{{ $profil->twitter_perusahaan }}"><i class="fab fa-twitter"></i></a>
-                    <a href="{{ $profil->instagram_perusahaan }}"><i class="fab fa-instagram"></i></a>
+    $ownerWhatsapp = \App\Models\OwnerWhatsapp::first();
+    $kategoris = \App\Models\ManageKategori::with('produks')->whereHas('produks', function($query) {
+        $query->where('status', 'aktif');
+    })->get();
+ @endphp
+ <header class="header header__style-one">
+    <div class="header__top-info-wrap d-none d-lg-block">
+        <div class="container">
+            <div class="header__top-info ul_li_between mt-none-10">
+                <ul class="ul_li mt-10">
+                    {{-- @if($profil && $profil->alamat_perusahaan)
+                        <li><i class="far fa-map-marker-alt"></i>{{ $profil->alamat_perusahaan }}</li>
+                    @endif --}}
+                    @if($profil && $profil->no_telp_perusahaan)
+                        <li><i class="fas fa-phone"></i>{{ $profil->no_telp_perusahaan }}</li>
+                    @elseif($ownerWhatsapp && $ownerWhatsapp->no_wa)
+                        <li><i class="fas fa-phone"></i><a href="https://wa.me/{{ $ownerWhatsapp->no_wa }}" target="_blank" class="text-white">{{ $ownerWhatsapp->no_wa }}</a></li>
+                    @endif
+                    @if($profil && $profil->nama_perusahaan)
+                        <li><i class="fas fa-heart"></i>Welcome to {{ $profil->nama_perusahaan }}</li>
+                    @endif
+                </ul>
+                <div class="header__top-right ul_li mt-10">
+                    <div class="date">
+                        <i class="fal fa-calendar-alt"></i> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
+                    </div>
+                    <div class="header__social ml-25">
+                        @if($profil && $profil->facebook_perusahaan)
+                            <a href="{{ $profil->facebook_perusahaan }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        @endif
+                        @if($profil && $profil->twitter_perusahaan)
+                            <a href="{{ $profil->twitter_perusahaan }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                        @endif
+                        @if($profil && $profil->instagram_perusahaan)
+                            <a href="{{ $profil->instagram_perusahaan }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                        @endif
+                        @if($profil && $profil->linkedin_perusahaan)
+                            <a href="{{ $profil->linkedin_perusahaan }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        @endif
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
-</div>
-
-<!-- Header Area Start -->
-<header class="header-section-1">
-    <div id="header-sticky" class="header-1">
-        <div class="container-fluid">
-            <div class="mega-menu-wrapper">
-                <div class="header-main">
-                    <div class="header-left">
-                        <div class="logo">
-                            <a href="{{ route('landing') }}" class="header-logo">
-                                <img src="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" width="auto"
-                                    height="50" alt="logo-img">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mean__menu-wrapper">
-                        <div class="main-menu">
-                            <nav id="mobile-menu">
-                                <ul>
-                                    <li class="has-dropdown active menu-thumb">
-                                        <a href="{{ route('landing') }}">
-                                            Home
-                                        </a>
-                                    </li>
-                                    <li class="has-dropdown active d-xl-none">
-                                        <a href="{{ route('landing') }}" class="border-top-none">
-                                            Home
-                                            <i class="fas fa-angle-down"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('about') }}">Tentang Kami</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('layanan') }}">Layanan </a>
-
-                                    </li>
-                                    <li class="has-dropdown active">
-                                        <a href="{{ route('shop') }}">Belanja</a>
-
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('kontak.index') }}">Kontak</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="header-right d-flex justify-content-end align-items-center">
+    <div class="container">
+        <div class="header__middle ul_li_between justify-content-xs-center">
+            <div class="header__logo">
+                <a href="{{ route('landing') }}">
+                    @if($profil && $profil->logo_perusahaan)
+                        <img src="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" alt="{{ $profil->nama_perusahaan ?? 'Logo' }}" style="max-height: 60px;">
+                    @else
+                        <img src="{{ asset('web') }}/assets/img/logo/logo.svg" alt="Logo">
+                    @endif
+                </a>
+            </div>
+            <form class="header__search-box" action="{{ route('shop') }}" method="GET">
+                <div class="select-box">
+                    <select id="category" name="kategori">
+                        <option value="">Semua Kategori</option>
+                        @foreach($kategoris as $kategori)
+                            <option value="{{ $kategori->id }}" {{ request('kategori') == $kategori->id ? 'selected' : '' }}>{{ $kategori->nama_kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <input type="text" name="search" id="search" placeholder="Cari Produk..." value="{{ request('search') }}" />
+                <button type="submit"><i class="far fa-search"></i>
+                </button>
+            </form>
+           
+            <div class="header__icons ul_li">
+               
+             
+                <div class="cart_btn icon" id="cartIcon">
+                    <img src="{{ asset('web') }}/assets/img/icon/shopping_bag.svg" alt="">
+                    <span class="count" id="cartCount">
                         @auth
-                            <div class="dropdown">
-                                <a href="#" class="user-icon dropdown-toggle" id="userDropdown"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="far fa-user"></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('profil') }}"><i
-                                                class="far fa-user me-2"></i>Profil</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('riwayat-pesanan.index') }}"><i
-                                                class="far fa-shopping-bag me-2"></i>Riwayat Pesanan</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <a href="/logout" class="dropdown-item">Logout</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            {{ \App\Models\Keranjang::where('user_id', Auth::id())->sum('quantity') ?? 0 }}
                         @else
-                            <div class="dropdown">
-                                <a href="#" class="user-icon dropdown-toggle" id="guestDropdown"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="far fa-user"></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="guestDropdown">
-                                    <li>
-                                        <a href="{{ route('login') }}" class="dropdown-item"><i
-                                                class="far fa-sign-in-alt me-1"></i> Login</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('register') }}" class="dropdown-item"><i
-                                                class="fas fa-user-plus me-1"></i> Register</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            0
                         @endauth
-                        @auth
-                            <div class="menu-cart position-relative">
-                                <button id="openButton">
-                                    <i class="far fa-shopping-cart"></i>
-                                    <span id="cartBadge"
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                        style="font-size:11px;min-width:20px;">
-                                        <span id="cartCount">0</span>
-                                    </span>
-                                </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header__cat-wrap" data-uk-sticky="top: 250; animation: uk-animation-slide-top;">
+        <div class="container">
+            <div class="header__wrap ul_li_between">
+                <div class="header__cat ul_li" >
+                    <div class="hamburger_menu">
+                        <a href="javascript:void(0);" class="active">
+                            <div class="icon bar">
+                                <span><i class="fal fa-bars"></i></span>
                             </div>
-                        @endauth
-                        @auth
-                            <script>
-                                function updateCartBadge() {
-                                    fetch('{{ route('keranjang.get') }}', {
-                                            method: 'GET',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                            }
-                                        })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            const badge = document.getElementById('cartBadge');
-                                            const count = document.getElementById('cartCount');
-                                            if (data.items && data.items.length > 0) {
-                                                let totalQty = 0;
-                                                data.items.forEach(item => {
-                                                    totalQty += item.quantity;
-                                                });
-                                                count.textContent = totalQty;
-                                                badge.style.display = 'inline-block';
-                                            } else {
-                                                count.textContent = 0;
-                                                badge.style.display = 'none';
-                                            }
-                                        })
-                                        .catch(() => {
-                                            // Hide badge on error
-                                            const badge = document.getElementById('cartBadge');
-                                            if (badge) badge.style.display = 'none';
-                                        });
-                                }
-
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    updateCartBadge();
-
-                                    // After adding to cart via detail page, reload badge
-                                    document.addEventListener('cart:updated', function() {
-                                        updateCartBadge();
-                                    });
-
-                                    // Optionally, update after sidebar is closed or cart is updated elsewhere
-                                });
-                            </script>
-                        @endauth
-                        <div class="header__hamburger d-xl-none align-self-center">
-                            <div class="sidebar__toggle">
-                                <img src="{{ asset('web') }}/assets/img/toggle.svg" width="20" height="20"
-                                    alt="img" style="position: relative; top: -2px;">
-                            </div>
-                        </div>
+                        </a>
                     </div>
+                    <ul class="category ul_li">
+                        @foreach($kategoris->take(6) as $kategori)
+                            <li>
+                                <a href="{{ route('shop', ['kategori' => $kategori->id]) }}">
+                                    <span><img src="{{ asset('web') }}/assets/img/icon/hc_0{{ ($loop->index % 6) + 1 }}.svg" alt=""></span>
+                                    {{ $kategori->nama_kategori }}
+                                </a>
+                            </li>
+                        @endforeach
+                        @if($kategoris->count() > 6)
+                            <li>
+                                <a href="{{ route('shop') }}">
+                                    <span><i class="fal fa-ellipsis-h"></i></span>
+                                    Lainnya
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
+                <div class="login-sign-btn">
+                    @auth
+                        <a class="thm-btn" href="{{ route('profil') }}">
+                            <span class="btn-wrap">
+                                <span>{{ Auth::user()->name }}</span>
+                                <span>{{ Auth::user()->name }}</span>
+                            </span>
+                        </a>
+                            <a href="/logout" class="thm-btn bg-danger" style="margin-left: 10px;">
+                                <span class="btn-wrap">
+                                    <span>Logout</span>
+                                    <span>Logout</span>
+                                </span>
+                            </a>
+                    @else
+                        <a class="thm-btn" href="{{ route('login') }}">
+                            <span class="btn-wrap">
+                                <span>Login / Sign Up</span>
+                                <span>Login / Sign Up</span>
+                            </span>
+                        </a>
+                    @endauth
                 </div>
             </div>
         </div>
     </div>
 </header>
+<!-- header end -->
+
+@auth
+<script>
+    // Update cart count secara dinamis
+    function updateCartCount() {
+        fetch('{{ route("keranjang.get") }}', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const cartCountElement = document.getElementById('cartCount');
+            if (cartCountElement) {
+                const totalQuantity = data.items ? data.items.reduce((sum, item) => sum + item.quantity, 0) : 0;
+                cartCountElement.textContent = totalQuantity;
+            }
+        })
+        .catch(error => {
+            console.error('Error updating cart count:', error);
+        });
+    }
+
+    // Update cart count saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartCount();
+    });
+
+    // Update cart count saat ada perubahan (event listener untuk custom event)
+    document.addEventListener('cartUpdated', function() {
+        updateCartCount();
+    });
+</script>
+@endauth

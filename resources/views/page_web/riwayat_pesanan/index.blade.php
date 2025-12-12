@@ -1,74 +1,64 @@
 @extends('template_web.layout')
 @section('content')
-    <!--<< Breadcrumb Section Start >>-->
-    <div class="breadcrumb-wrapper section-padding bg-cover" style="background-image: url('{{ asset('web') }}/assets/img/breadcrumb.png');">
+
+    <!-- breadcrumb start -->
+    <section class="breadcrumb-area">
         <div class="container">
-            <div class="page-heading">
-                <div class="breadcrumb-sub-title text-center">
-                    <h1 class="wow fadeInUp" data-wow-delay=".3s">Riwayat Pesanan</h1>
-                    <ul class="breadcrumb-items wow fadeInUp" data-wow-delay=".5s">
-                        <li>
-                            <a href="{{ route('landing') }}">
-                                Beranda
-                            </a>
-                        </li>
-                        <li>
-                            <i class="fal fa-minus"></i>
-                        </li>
-                        <li>
-                            Riwayat Pesanan
-                        </li>
-                    </ul>
-                </div>
+            <div class="radios-breadcrumb breadcrumbs">
+                <ul class="list-unstyled d-flex align-items-center">
+                    <li class="radiosbcrumb-item radiosbcrumb-begin">
+                        <a href="{{ route('landing') }}"><span>Beranda</span></a>
+                    </li>
+                    <li class="radiosbcrumb-item radiosbcrumb-end">
+                        <span>Riwayat Pesanan</span>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- breadcrumb end -->
 
-    <!-- About Section Start -->
-    <section class="about-section section-padding">
+    <!-- start checkout-section -->
+    <section class="checkout-section pb-80">
         <div class="container">
-            <div class="about-wrapper">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title text-center mb-4">
-                            <div class="sub-title wow fadeInUp">
-                                <span>Riwayat Pesanan Saya</span>
-                            </div>
-                            <h2 class="split-text right wow fadeInUp" data-wow-delay=".3s">
-                                Daftar Pesanan
-                            </h2>
-                        </div>
+            <div class="row">
+                <div class="col col-xs-12">
+                    <div class="woocommerce">
+                        <h2 class="woocommerce-order-title mb-30">Riwayat Pesanan Saya</h2>
 
                         @if($pesanans->count() > 0)
-                            <div class="table-responsive wow fadeInUp" data-wow-delay=".5s">
-                                <table class="table table-striped table-hover">
+                            <div class="woocommerce-order-table-wrap">
+                                <table class="woocommerce-orders-table shop_table shop_table_responsive">
                                     <thead>
                                         <tr>
-                                            <th>Order ID</th>
-                                            <th>Tanggal Pesanan</th>
-                                            <th>Jumlah Item</th>
-                                            <th>Total</th>
-                                            <th>Aksi</th>
+                                            <th class="woocommerce-orders-table__header">Order ID</th>
+                                            <th class="woocommerce-orders-table__header">Tanggal Pesanan</th>
+                                            <th class="woocommerce-orders-table__header">Jumlah Item</th>
+                                            <th class="woocommerce-orders-table__header">Total</th>
+                                            <th class="woocommerce-orders-table__header">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($pesanans as $pesanan)
-                                            <tr>
-                                                <td>
+                                            <tr class="woocommerce-orders-table__row">
+                                                <td class="woocommerce-orders-table__cell" data-title="Order ID">
                                                     <strong>{{ $pesanan->order_id }}</strong>
                                                 </td>
-                                                <td>
+                                                <td class="woocommerce-orders-table__cell" data-title="Tanggal">
                                                     {{ \Carbon\Carbon::parse($pesanan->created_at)->format('d M Y, H:i') }}
                                                 </td>
-                                                <td>
+                                                <td class="woocommerce-orders-table__cell" data-title="Item">
                                                     <span class="badge bg-primary">{{ $pesanan->quantity }} item</span>
                                                 </td>
-                                                <td>
+                                                <td class="woocommerce-orders-table__cell" data-title="Total">
                                                     <strong>Rp {{ number_format($pesanan->total, 0, ',', '.') }}</strong>
                                                 </td>
-                                                <td>
-                                                    <a href="{{ route('riwayat-pesanan.detail', $pesanan->id) }}" class="btn btn-sm btn-outline-primary">
-                                                        <i class="far fa-eye"></i> Detail
+                                                <td class="woocommerce-orders-table__cell" data-title="Aksi">
+                                                    <a href="{{ route('riwayat-pesanan.detail', $pesanan->id) }}" class="thm-btn thm-btn__2">
+                                                        <span class="btn-wrap">
+                                                            <span>Detail</span>
+                                                            <span>Detail</span>
+                                                        </span>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -77,14 +67,17 @@
                                 </table>
                             </div>
                         @else
-                            <div class="text-center py-5 wow fadeInUp" data-wow-delay=".5s">
+                            <div class="woocommerce-info text-center py-5">
                                 <div class="mb-4">
                                     <i class="far fa-shopping-bag" style="font-size: 64px; color: #ccc;"></i>
                                 </div>
                                 <h4>Belum Ada Pesanan</h4>
-                                <p class="text-muted">Anda belum memiliki riwayat pesanan.</p>
-                                <a href="{{ route('shop') }}" class="theme-btn mt-3">
-                                    <i class="far fa-shopping-cart"></i> Mulai Belanja
+                                <p class="text-muted mb-4">Anda belum memiliki riwayat pesanan.</p>
+                                <a href="{{ route('shop') }}" class="thm-btn thm-btn__2">
+                                    <span class="btn-wrap">
+                                        <span>Mulai Belanja</span>
+                                        <span>Mulai Belanja</span>
+                                    </span>
                                 </a>
                             </div>
                         @endif
@@ -93,5 +86,6 @@
             </div>
         </div>
     </section>
+    <!-- end checkout-section -->
 
 @endsection

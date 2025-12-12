@@ -1,15 +1,35 @@
-<div id="targetElement" class="side_bar slideInRight side_bar_hidden">
-        <div class="side_bar_overlay"></div>
-        <div class="cart-title mb-50">
-            <h4>Keranjang Belanja</h4>
+<!-- sidebar-info start -->
+<div id="targetElement" class="cart_sidebar">
+    <button type="button" id="closeButton" class="cart_close_btn"><i class="fal fa-times"></i></button>
+    <h2 class="heading_title text-uppercase">Keranjang Belanja - <span id="cartCount">0</span></h2>
+    <div class="cart_items_list" id="cartItems">
+        <div class="text-center py-5">
+            <p class="text-muted">Memuat keranjang...</p>
         </div>
-        <div class="cartmini__widget" id="cartItems">
-            <div class="text-center py-5">
-                <p class="text-muted">Memuat keranjang...</p>
-            </div>
-        </div>
-        <button id="closeButton" class="x-mark-icon"><i class="fas fa-times"></i></button>
     </div>
+    <div class="total_price text-uppercase" id="cartTotal" style="display: none;">
+        <span>Sub Total:</span>
+        <span id="subtotalAmount">Rp 0</span>
+    </div>
+    <div class="d-flex flex-column gap-2 align-items-stretch" id="cartButtons" style="display: none; margin-top: 24px;">
+        <a href="{{ route('shop') }}" class="thm-btn w-100" style="min-width:160px;">
+            <span class="btn-wrap">
+                <span>Lihat Semua Produk</span>
+                <span>Lihat Semua Produk</span>
+            </span>
+        </a>
+        <a href="#" 
+           class="thm-btn thm-btn__black w-100" 
+           style="min-width:160px;" 
+           onclick="event.preventDefault(); lanjutkanPesanan();">
+            <span class="btn-wrap">
+                <span>Lanjutkan Pesanan</span>
+                <span>Lanjutkan Pesanan</span>
+            </span>
+        </a>
+    </div>
+</div>
+<!-- sidebar-info end -->
 
 <script>
     function loadCart() {
@@ -23,53 +43,61 @@
         .then(response => response.json())
         .then(data => {
             const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const cartButtons = document.getElementById('cartButtons');
+            const cartCount = document.getElementById('cartCount');
             
             if (data.items && data.items.length > 0) {
                 let html = '';
                 
                 data.items.forEach(item => {
+                    const totalHarga = item.harga * item.quantity;
                     html += `
-                        <div class="cartmini__widget-item" data-cart-id="${item.id}">
-                            <div class="cartmini__thumb">
+                        <div class="cart_item" data-cart-id="${item.id}">
+                            <div class="item_image">
                                 <a href="{{ url('/shop') }}/${item.slug}">
                                     <img src="${item.gambar}" alt="${item.judul}">
                                 </a>
                             </div>
-                            <div class="cartmini__content">
-                                <h5><a href="{{ url('/shop') }}/${item.slug}">${item.judul}</a></h5>
-                                <div class="cartmini__price-wrapper">
-                                    <span class="cartmini__price">Rp ${formatNumber(item.harga)}</span>
-                                    <span class="cartmini__quantity">x${item.quantity}</span>
-                                </div>
+                            <div class="item_content">
+                                <h4 class="item_title">
+                                    <a href="{{ url('/shop') }}/${item.slug}">${item.judul}</a>
+                                </h4>
+                                <span class="item_price">Rp ${formatNumber(totalHarga)} <small>(x${item.quantity})</small></span>
+                                <button type="button" class="remove_btn" onclick="removeFromCart(${item.id})">
+                                    <i class="fal fa-times"></i>
+                                </button>
                             </div>
-                            <button class="cartmini__del" onclick="removeFromCart(${item.id})">
-                                <i class="fal fa-times"></i>
-                            </button>
                         </div>
                     `;
                 });
                 
-                html += `
-                    <div class="cartmini__checkout">
-                        <div class="cartmini__checkout-title mb-4">
-                            <h4>Subtotal:</h4>
-                            <span>Rp ${formatNumber(data.subtotal)}</span>
-                        </div>
-                        <div class="cartmini__checkout-btn">
-                            <a href="#" class="theme-btn mb-2 w-100" onclick="event.preventDefault(); window.location.href='{{ route('shop') }}'">Lihat Semua Produk</a>
-                            <a href="#" class="theme-btn w-100 style-2" onclick="lanjutkanPesanan()">Lanjutkan Pesanan</a>
-                        </div>
-                    </div>
-                `;
-                
                 cartItems.innerHTML = html;
+                
+                // Update subtotal
+                document.getElementById('subtotalAmount').textContent = 'Rp ' + formatNumber(data.subtotal);
+                cartCount.textContent = data.items.length;
+                
+                // Show total and buttons
+                cartTotal.style.display = 'flex';
+                cartButtons.style.display = 'flex';
             } else {
                 cartItems.innerHTML = `
                     <div class="text-center py-5">
                         <p class="text-muted">Keranjang Anda kosong</p>
-                        <a href="{{ route('shop') }}" class="theme-btn mt-3">Mulai Belanja</a>
+                        <a href="{{ route('shop') }}" class="thm-btn mt-3">
+                            <span class="btn-wrap">
+                                <span>Mulai Belanja</span>
+                                <span>Mulai Belanja</span>
+                            </span>
+                        </a>
                     </div>
                 `;
+                cartCount.textContent = '0';
+                
+                // Hide total and buttons
+                cartTotal.style.display = 'none';
+                cartButtons.style.display = 'none';
             }
         })
         .catch(error => {

@@ -109,6 +109,31 @@
                 </div>
 
                 <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="form-label">Model</label>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted">Tambah beberapa model produk</span>
+                        <button type="button" class="btn btn-sm btn-success" id="addModelRow"><i class="bx bx-plus"></i> Tambah Model</button>
+                      </div>
+                      <div id="modelsContainer"></div>
+                      @error('model')<div class="text-danger small">{{ $message }}</div>@enderror
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="form-label">Tags</label>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted">Tambah beberapa tags produk</span>
+                        <button type="button" class="btn btn-sm btn-success" id="addTagRow"><i class="bx bx-plus"></i> Tambah Tag</button>
+                      </div>
+                      <div id="tagsContainer"></div>
+                      @error('tags')<div class="text-danger small">{{ $message }}</div>@enderror
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="form-label">Berat (kg)</label>
@@ -138,6 +163,16 @@
                       <label class="form-label">Deskripsi <span class="text-danger">*</span></label>
                       <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="5" required>{{ old('deskripsi') }}</textarea>
                       @error('deskripsi')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="form-label">Detail Produk</label>
+                      <textarea name="detail_produk" class="form-control @error('detail_produk') is-invalid @enderror" rows="5">{{ old('detail_produk') }}</textarea>
+                      @error('detail_produk')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                   </div>
                 </div>
@@ -211,6 +246,48 @@
   document.addEventListener('click', function(e){
     if (e.target.closest('.remove-image-row')) {
       e.target.closest('.image-row').remove();
+    }
+  });
+
+  // Dynamic model inputs
+  let modelIdx = 0;
+  document.getElementById('addModelRow').addEventListener('click', function(){
+    const wrap = document.getElementById('modelsContainer');
+    const row = document.createElement('div');
+    row.className = 'model-row mb-2 p-2 border rounded';
+    row.innerHTML = `
+      <div class="d-flex justify-content-between align-items-center">
+        <input type="text" name="model[]" class="form-control me-2" placeholder="Masukkan model produk" />
+        <button type="button" class="btn btn-sm btn-danger remove-model-row"><i class="bx bx-trash"></i></button>
+      </div>
+    `;
+    wrap.appendChild(row); modelIdx++;
+  });
+
+  document.addEventListener('click', function(e){
+    if (e.target.closest('.remove-model-row')) {
+      e.target.closest('.model-row').remove();
+    }
+  });
+
+  // Dynamic tags inputs
+  let tagIdx = 0;
+  document.getElementById('addTagRow').addEventListener('click', function(){
+    const wrap = document.getElementById('tagsContainer');
+    const row = document.createElement('div');
+    row.className = 'tag-row mb-2 p-2 border rounded';
+    row.innerHTML = `
+      <div class="d-flex justify-content-between align-items-center">
+        <input type="text" name="tags[]" class="form-control me-2" placeholder="Masukkan tag produk" />
+        <button type="button" class="btn btn-sm btn-danger remove-tag-row"><i class="bx bx-trash"></i></button>
+      </div>
+    `;
+    wrap.appendChild(row); tagIdx++;
+  });
+
+  document.addEventListener('click', function(e){
+    if (e.target.closest('.remove-tag-row')) {
+      e.target.closest('.tag-row').remove();
     }
   });
 </script>

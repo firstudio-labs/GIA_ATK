@@ -8,7 +8,6 @@ use App\Models\Beranda;
 use App\Models\ManageSection;
 use App\Models\ManageProduk;
 use App\Models\ManageKategori;
-use App\Models\ManageLayanan;
 use App\Models\OwnerWhatsapp;
 use Illuminate\Support\Facades\DB;
 
@@ -18,49 +17,35 @@ class LandingController extends Controller
     {
         $profil = Profil::first();
         $beranda = Beranda::first();
-        $manageLayanans = ManageLayanan::orderBy('created_at', 'desc')->take(4)->get();
         $ownerWhatsapp = OwnerWhatsapp::first();
-        // Ambil section dengan is_new = true atau yang terbaru
-        $sectionTerbaru = ManageSection::where('is_new', true)
-            ->orderBy('created_at', 'desc')
-            ->first();
         
-        // Jika tidak ada yang is_new = true, ambil yang terbaru
-        if (!$sectionTerbaru) {
-            $sectionTerbaru = ManageSection::orderBy('created_at', 'desc')->first();
-        }
-        
-        // Ambil produk berdasarkan product_ids dari section
-        $produkTerbaru = collect();
-        if ($sectionTerbaru) {
-            // Ambil product_ids langsung dari database sebagai JSON string
+        // Helper function untuk mengambil produk dari section
+        $getProdukFromSection = function($section) {
+            if (!$section) {
+                return collect();
+            }
+            
             $rawProductIds = DB::table('manage_sections')
-                ->where('id', $sectionTerbaru->id)
+                ->where('id', $section->id)
                 ->value('product_ids');
             
-            // Decode JSON string ke array
             if ($rawProductIds) {
                 $productIds = json_decode($rawProductIds, true);
                 
-                // Jika decode berhasil dan array tidak kosong
                 if (is_array($productIds) && count($productIds) > 0) {
-                    // Filter null/empty dan cast ke integer
                     $productIds = array_filter($productIds, function($id) {
                         return $id !== null && $id !== '' && $id !== 0;
                     });
                     
-                    // Cast semua ID ke integer
                     $productIds = array_map(function($id) {
                         return (int) $id;
                     }, array_values($productIds));
                     
-                    // Ambil produk berdasarkan ID
                     if (count($productIds) > 0) {
-                        $produkTerbaru = ManageProduk::whereIn('id', $productIds)
+                        return ManageProduk::whereIn('id', $productIds)
                             ->where('status', 'aktif')
                             ->get()
                             ->sortBy(function($produk) use ($productIds) {
-                                // Urutkan sesuai urutan di product_ids
                                 $index = array_search($produk->id, $productIds);
                                 return $index !== false ? $index : 999;
                             })
@@ -68,13 +53,43 @@ class LandingController extends Controller
                     }
                 }
             }
+            
+            return collect();
+        };
+        
+        // Ambil semua section yang dibutuhkan
+        $sectionNames = ['Top Produk', 'Recent', 'Top', 'Top Rating', 'Best Seller', 'Best Product'];
+        $sections = ManageSection::whereIn('name', $sectionNames)->get()->keyBy('name');
+        
+        // Ambil produk untuk setiap section
+        $topProduk = $getProdukFromSection($sections->get('Top Produk'));
+        $recentProduk = $getProdukFromSection($sections->get('Recent'));
+        $topProdukSection = $getProdukFromSection($sections->get('Top'));
+        $topRatingProduk = $getProdukFromSection($sections->get('Top Rating'));
+        $bestSellerProduk = $getProdukFromSection($sections->get('Best Seller'));
+        $bestProduct = $getProdukFromSection($sections->get('Best Product'));
+        
+        // Untuk Recent, selalu ambil produk terbaru (jika section ada, gabungkan dengan produk terbaru)
+        $produkTerbaru = ManageProduk::where('status', 'aktif')
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
+        
+        if ($recentProduk->isNotEmpty()) {
+            // Gabungkan produk dari section dengan produk terbaru, pastikan tidak duplikat
+            $existingIds = $recentProduk->pluck('id')->toArray();
+            $produkTerbaruTambahan = $produkTerbaru->whereNotIn('id', $existingIds)->take(8 - $recentProduk->count());
+            $recentProduk = $recentProduk->merge($produkTerbaruTambahan)->take(8);
+        } else {
+            // Jika section tidak ada, gunakan produk terbaru
+            $recentProduk = $produkTerbaru;
         }
         
-        // Ambil produk dikelompokkan per kategori
+        // Ambil produk dikelompokkan per kategori untuk trending
         $produkPerKategori = ManageKategori::with(['produks' => function($query) {
             $query->where('status', 'aktif')
                   ->orderBy('created_at', 'desc')
-                  ->take(8); // Ambil maksimal 8 produk per kategori
+                  ->take(8);
         }])
         ->whereHas('produks', function($query) {
             $query->where('status', 'aktif');
@@ -90,6 +105,28 @@ class LandingController extends Controller
             return $item['produks']->count() > 0;
         });
         
-        return view('page_web.landing.index', compact('profil', 'beranda', 'produkTerbaru', 'manageLayanans', 'ownerWhatsapp', 'produkPerKategori'));
+        // Ambil semua kategori untuk sidebar
+        $kategoris = ManageKategori::with(['produks' => function($query) {
+            $query->where('status', 'aktif');
+        }])
+        ->whereHas('produks', function($query) {
+            $query->where('status', 'aktif');
+        })
+        ->get();
+        
+        return view('page_web.landing.index', compact(
+            'profil', 
+            'beranda', 
+            'ownerWhatsapp', 
+            'topProduk',
+            'recentProduk',
+            'topProdukSection',
+            'topRatingProduk',
+            'bestSellerProduk',
+            'bestProduct',
+            'produkPerKategori',
+            'kategoris',
+            'sections'
+        ));
     }
 }

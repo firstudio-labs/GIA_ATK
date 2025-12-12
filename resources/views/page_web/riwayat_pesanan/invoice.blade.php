@@ -238,25 +238,33 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #28a745;
+            background: var(--color-primary, #6F00FD);
             color: white;
             border: none;
             padding: 12px 24px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             z-index: 1000;
+            transition: all 0.3s ease;
         }
 
         .print-button:hover {
-            background: #218838;
+            background: var(--color-primary-2, #5a00cc);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .print-button i {
+            margin-right: 8px;
         }
     </style>
 </head>
 <body>
     <button onclick="window.print()" class="print-button no-print">
-        <i class="fas fa-print"></i> Cetak Invoice
+        <i class="far fa-print"></i> Cetak Invoice
     </button>
 
     <div class="invoice-container">

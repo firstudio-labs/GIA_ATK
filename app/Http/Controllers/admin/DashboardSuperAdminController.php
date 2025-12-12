@@ -4,7 +4,6 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\ManageLayanan;
 use App\Models\ManageProduk;
 use App\Models\ManageSection;
 use App\Models\Pesanan;
@@ -16,7 +15,6 @@ class DashboardSuperAdminController extends Controller
 {
     public function index(){
         // Statistik dasar
-        $totalLayanan = ManageLayanan::count();
         $totalProduk = ManageProduk::count();
         $totalProdukAktif = ManageProduk::where('status', 'aktif')->count();
         $totalProdukNonaktif = ManageProduk::where('status', 'nonaktif')->count();
@@ -85,7 +83,6 @@ class DashboardSuperAdminController extends Controller
         }
         
         return view('page_admin.dashboard.index', compact(
-            'totalLayanan',
             'totalProduk',
             'totalProdukAktif',
             'totalProdukNonaktif',

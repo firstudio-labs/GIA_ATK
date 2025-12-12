@@ -1,68 +1,86 @@
-/*
-Theme Name: Printnow
-Author: Modina Theme
-Author URI: https://themeforest.net/user/modinatheme/
-Description: Printing Company & Design Services HTML Template
-Version: 1.1.0
-*/
+/*-----------------------------------------------------------------------------------
 
-//>> Mixins <<//
-@import "_mixins";
-//>> Variables <<//	
-@import "_variables";
-//>> Buttons <<//
-@import "_buttons";
-//>> Typography <<//
-@import "_typography";
-//>> Basic End <<//	
+    Project Name: Radios - Electronics Store WooCommerce Template
+    Author: Themexriver -->> (https://themeforest.net/user/themexriver)
+    Support: themexriver@gmail.com
+    Description: Radios - Electronics Store WooCommerce Template
+    Developer: Mohammad Wasim Mia
+    Version: 1.0
 
+-----------------------------------------------------------------------------------
 
-//>> Template Section Style Start <<//
+    CSS INDEX
+    ===================
 
-//>> Preloader <<//
-@import "_preloader";
-//>> Section <<//
-@import "_section";
-//>> Animation <<//
-@import "_animation";
-//>> Header <<//
-@import "_header";
-//>> MeanMenu <<//
-@import "_meanmenu";
-//>> Hero <<//
-@import "_hero";
-//>> Feature <<//
-@import "_feature";
-//>> About <<//
-@import "_about";
-//>> Shop <<//
-@import "_shop";
-//>> Service <<//
-@import "_service";
-//>> Project <<//
-@import "_project";
-//>> Helping <<//
-@import "_helping";
-//>> Team <<//
-@import "_team";
-//>> Faq <<//
-@import "_faq";
-//>> Cta <<//
-@import "_cta";
-//>> Marquee <<//
-@import "_marquee";
-//>> Testimonial <<//
-@import "_testimonial";
-//>> Brand <<//
-@import "_brand";
-//>> News Addons <<//
-@import "_news-addons";
-//>> Blog index defult style <<//
-@import "_blog";
-//>> Contact <<//
-@import "_contact";
-//>> Footer <<//
-@import "_footer";
+	01. Theme default CSS
+    02. header
+    03. home
+    04. global
+    05. preloder
+    06. about
+    07. contact
+    08. faq
+    09. news
+    10. blog
+    11. shop
+    12. author
+    13. 404
+    14. footer
 
-//>> Template Section Style End <<//
+-----------------------------------------------------------------------------------*/
+// abstracts scss
+@import
+    'abstracts/variables',
+    'abstracts/mixins';
 
+// base scss
+@import 
+    'base/fonts',
+    'base/base',
+    'base/spacing',
+    'base/typography',
+    'base/animation',
+    'base/overlay';
+
+// layout scss
+@import 
+    'layout/header',
+    'layout/navigation';
+ 
+// components scss
+@import 
+    'components/social-links',
+    'components/buttons',
+    'components/global',
+    'components/sidebar',
+    'components/category',
+    'components/search',
+    'components/hero',
+    'components/banner',
+    'components/banner-slide',
+    'components/product',
+    'components/brand',
+    'components/news',
+    'components/newslater',
+    'components/featured',
+    'components/feature',
+    'components/offer',
+    'components/testimonial',
+    'components/feedback',
+    'components/breadcrumb',
+    'components/shop',
+    'components/contact',
+    'components/about',
+    'components/account',
+    'components/404',
+    'components/preloder',
+    'components/backtotop';
+
+// page scss
+@import 
+    'pages/home';
+
+// layout scss
+@import 
+    'layout/footer';
+ 

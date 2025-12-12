@@ -42,13 +42,7 @@
                         </a>
                     </li>
 
-                    <li class="pc-item">
-                        <a href="{{ route('manage-layanan.index') }}" class="pc-link">
-                            <span class="pc-micon"><i class="ti ti-list-check"></i></span>
-                            <span class="pc-mtext">Data Layanan</span>
-                        </a>
-                    </li>
-
+               
                     <li class="pc-item pc-hasmenu">
                         <a href="#" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-menu"></i></span>
@@ -86,12 +80,7 @@
                             <span class="pc-mtext">Manage Info</span>
                         </a>
                     </li>
-                    <li class="pc-item">
-                        <a href="{{ route('manage-artikel.index') }}" class="pc-link">
-                            <span class="pc-micon"><i class="ti ti-file-text"></i></span>
-                            <span class="pc-mtext">Manage Artikel</span>
-                        </a>
-                    </li>
+              
                     <li class="pc-item pc-hasmenu">
                         <a href="#" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-brand-whatsapp"></i></span>
@@ -114,6 +103,12 @@
                         <a href="{{ route('daftar-riwayat-pesanan.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-shopping-cart"></i></span>
                             <span class="pc-mtext">Daftar Riwayat Pesanan</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="{{ route('daftar-customer.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-users"></i></span>
+                            <span class="pc-mtext">Daftar Customer</span>
                         </a>
                     </li>
                 </ul>
