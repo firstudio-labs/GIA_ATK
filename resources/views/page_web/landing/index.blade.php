@@ -201,27 +201,27 @@
         <div class="tab-product pt-40 pb-40">
             <div class="container">
                 <div class="product__nav-wrap ul_li_between mb-20">
-                    <h2 class="section-heading"><span>Hot <span>Baru Masuk</span> Anda Mungkin Suka</span></h2>
+                    <h2 class="section-heading"><span>Hot <span>New Arrival</span> You May Like</span></h2>
                     <ul class="product__nav rd-tab-nav nav nav-tabs" id="vd-myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="vd-tab-01" data-bs-toggle="tab" data-bs-target="#vd-tab1"
                                 type="button" role="tab" aria-controls="vd-tab1"
-                                aria-selected="true">Terbaru</button>
+                                aria-selected="true">Recent</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="vd-tab-02" data-bs-toggle="tab" data-bs-target="#vd-tab2"
-                                type="button" role="tab" aria-controls="vd-tab2" aria-selected="false">Terbaik
+                                type="button" role="tab" aria-controls="vd-tab2" aria-selected="false">Best
                                 Seller</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="vd-tab-03" data-bs-toggle="tab" data-bs-target="#vd-tab3"
-                                type="button" role="tab" aria-controls="vd-tab3" aria-selected="false">Terpopuler</button>
+                                type="button" role="tab" aria-controls="vd-tab3" aria-selected="false">Top</button>
                         </li>
 
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="vd-tab-05" data-bs-toggle="tab" data-bs-target="#vd-tab5"
-                                type="button" role="tab" aria-controls="vd-tab5" aria-selected="false">Favorit
-                                </button>
+                                type="button" role="tab" aria-controls="vd-tab5" aria-selected="false">Top
+                                rating</button>
                         </li>
                     </ul>
                 </div>
@@ -247,12 +247,22 @@
                                         $hargaDiskon = $diskonValue > 0 ? $produk->harga - ($produk->harga * $diskonValue / 100) : $produk->harga;
                                     @endphp
                                     <div class="tab-product__item tx-product text-center">
-                                        <div class="thumb mb-20">
+                                        <div class="thumb">
                                             <a href="{{ route('shop.detail', $produk->slug) }}"><img
                                                     src="{{ $gambarProduk }}"
                                                     alt="{{ $produk->judul }}"></a>
                                         </div>
                                         <div class="content">
+                                            <div class="product__review ul_li_center">
+                                                <ul class="rating-star ul_li mr-10">
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="far fa-star"></i></li>
+                                                    <li><i class="far fa-star"></i></li>
+                                                </ul>
+                                                <span>(126)</span>
+                                            </div>
                                             <h3 class="title"><a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a></h3>
                                             <span class="price">
                                                 Rp {{ number_format($hargaDiskon, 0, ',', '.') }}
@@ -263,7 +273,7 @@
                                         </div>
                                       
                                         @if($recentSection && $recentSection->is_new)
-                                            <span class="badge-skew">Baru</span>
+                                            <span class="badge-skew">New</span>
                                         @endif
                                     </div>
                                 @empty
@@ -293,12 +303,22 @@
                                         $hargaDiskon = $diskonValue > 0 ? $produk->harga - ($produk->harga * $diskonValue / 100) : $produk->harga;
                                     @endphp
                                     <div class="tab-product__item tx-product text-center">
-                                        <div class="thumb mb-20">
+                                        <div class="thumb">
                                             <a href="{{ route('shop.detail', $produk->slug) }}"><img
                                                     src="{{ $gambarProduk }}"
                                                     alt="{{ $produk->judul }}"></a>
                                         </div>
                                         <div class="content">
+                                            <div class="product__review ul_li_center">
+                                                <ul class="rating-star ul_li mr-10">
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="far fa-star"></i></li>
+                                                    <li><i class="far fa-star"></i></li>
+                                                </ul>
+                                                <span>(126)</span>
+                                            </div>
                                             <h3 class="title"><a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a></h3>
                                             <span class="price">
                                                 Rp {{ number_format($hargaDiskon, 0, ',', '.') }}
@@ -313,7 +333,7 @@
                                             <li><a href="#!"><i class="far fa-heart"></i></a></li>
                                         </ul>
                                         @if($bestSellerSection && $bestSellerSection->is_new)
-                                            <span class="badge-skew">Baru</span>
+                                            <span class="badge-skew">New</span>
                                         @endif
                                     </div>
                                 @empty
@@ -328,7 +348,7 @@
                                 @php
                                     $topSection = $sections->get('Top');
                                 @endphp
-                                @forelse($topProdukSection->take(8) as $produk)
+                                @forelse($topProduk->take(8) as $produk)
                                     @php
                                         $gambarProduk = is_array($produk->gambar_produk) && !empty($produk->gambar_produk) 
                                             ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
@@ -343,12 +363,22 @@
                                         $hargaDiskon = $diskonValue > 0 ? $produk->harga - ($produk->harga * $diskonValue / 100) : $produk->harga;
                                     @endphp
                                     <div class="tab-product__item tx-product text-center">
-                                        <div class="thumb mb-20">
+                                        <div class="thumb">
                                             <a href="{{ route('shop.detail', $produk->slug) }}"><img
                                                     src="{{ $gambarProduk }}"
                                                     alt="{{ $produk->judul }}"></a>
                                         </div>
                                         <div class="content">
+                                            <div class="product__review ul_li_center">
+                                                <ul class="rating-star ul_li mr-10">
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="far fa-star"></i></li>
+                                                    <li><i class="far fa-star"></i></li>
+                                                </ul>
+                                                <span>(126)</span>
+                                            </div>
                                             <h3 class="title"><a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a></h3>
                                             <span class="price">
                                                 Rp {{ number_format($hargaDiskon, 0, ',', '.') }}
@@ -363,7 +393,7 @@
                                             <li><a href="#!"><i class="far fa-heart"></i></a></li>
                                         </ul>
                                         @if($topSection && $topSection->is_new)
-                                            <span class="badge-skew">Baru</span>
+                                            <span class="badge-skew">New</span>
                                         @endif
                                     </div>
                                 @empty
@@ -393,12 +423,22 @@
                                         $hargaDiskon = $diskonValue > 0 ? $produk->harga - ($produk->harga * $diskonValue / 100) : $produk->harga;
                                     @endphp
                                     <div class="tab-product__item tx-product text-center">
-                                        <div class="thumb mb-20">
+                                        <div class="thumb">
                                             <a href="{{ route('shop.detail', $produk->slug) }}"><img
                                                     src="{{ $gambarProduk }}"
                                                     alt="{{ $produk->judul }}"></a>
                                         </div>
                                         <div class="content">
+                                            <div class="product__review ul_li_center">
+                                                <ul class="rating-star ul_li mr-10">
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="fas fa-star"></i></li>
+                                                    <li><i class="far fa-star"></i></li>
+                                                    <li><i class="far fa-star"></i></li>
+                                                </ul>
+                                                <span>(126)</span>
+                                            </div>
                                             <h3 class="title"><a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a></h3>
                                             <span class="price">
                                                 Rp {{ number_format($hargaDiskon, 0, ',', '.') }}
@@ -413,7 +453,7 @@
                                             <li><a href="#!"><i class="far fa-heart"></i></a></li>
                                         </ul>
                                         @if($topRatingSection && $topRatingSection->is_new)
-                                            <span class="badge-skew">Baru</span>
+                                            <span class="badge-skew">New</span>
                                         @endif
                                     </div>
                                 @empty
