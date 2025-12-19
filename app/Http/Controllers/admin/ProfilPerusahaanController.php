@@ -46,7 +46,7 @@ class ProfilPerusahaanController extends Controller
                 'instagram_perusahaan' => 'nullable|string',
                 'facebook_perusahaan' => 'nullable|string',
                 'twitter_perusahaan' => 'nullable|string',
-                'linkedin_perusahaan' => 'nullable|string',
+                'tiktok_perusahaan' => 'nullable|string',
             ]);
 
             $profil = new Profil();
@@ -59,7 +59,7 @@ class ProfilPerusahaanController extends Controller
             $profil->instagram_perusahaan = $request->instagram_perusahaan;
             $profil->facebook_perusahaan = $request->facebook_perusahaan;
             $profil->twitter_perusahaan = $request->twitter_perusahaan;
-            $profil->linkedin_perusahaan = $request->linkedin_perusahaan;
+            $profil->tiktok_perusahaan = $request->tiktok_perusahaan;
 
             if ($request->hasFile('logo_perusahaan')) {
                 $logo = $request->file('logo_perusahaan');
@@ -119,7 +119,7 @@ class ProfilPerusahaanController extends Controller
                 'instagram_perusahaan' => 'nullable|string',
                 'facebook_perusahaan' => 'nullable|string',
                 'twitter_perusahaan' => 'nullable|string',
-                'linkedin_perusahaan' => 'nullable|string',
+                'tiktok_perusahaan' => 'nullable|string',
             ]);
 
             $profil_perusahaan->nama_perusahaan = $request->nama_perusahaan;
@@ -131,7 +131,7 @@ class ProfilPerusahaanController extends Controller
             $profil_perusahaan->instagram_perusahaan = $request->instagram_perusahaan;
             $profil_perusahaan->facebook_perusahaan = $request->facebook_perusahaan;
             $profil_perusahaan->twitter_perusahaan = $request->twitter_perusahaan;
-            $profil_perusahaan->linkedin_perusahaan = $request->linkedin_perusahaan;
+            $profil_perusahaan->tiktok_perusahaan = $request->tiktok_perusahaan;
 
             if ($request->hasFile('logo_perusahaan')) {
                 // Hapus logo lama jika ada

@@ -18,23 +18,10 @@
         </div>
         <ul id="mobile-menu-active">
             <li><a href="{{ route('landing') }}">Beranda</a></li>
-            <li class="dropdown">
-                <a href="{{ route('shop') }}">Toko</a>
-                @php
-                    $kategoris = \App\Models\ManageKategori::with('produks')->whereHas('produks', function($query) {
-                        $query->where('status', 'aktif');
-                    })->get();
-                @endphp
-                @if($kategoris->isNotEmpty())
-                <ul class="sub-menu">
-                    @foreach($kategoris as $kategori)
-                        <li><a href="{{ route('shop', ['kategori' => $kategori->id]) }}">{{ $kategori->nama_kategori }}</a></li>
-                    @endforeach
-                </ul>
-                @endif
-            </li>
+            <li><a href="{{ route('shop') }}">Toko</a></li>
             <!-- <li><a href="{{ route('about') }}">Tentang Kami</a></li> -->
             <li><a href="{{ route('kontak.index') }}">Kontak</a></li>
+            <li><a href="/riwayat-pesanan">Riwayat Pesanan</a></li>
         </ul>
     </nav>
     

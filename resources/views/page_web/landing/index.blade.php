@@ -1,5 +1,7 @@
 @extends('template_web.layout')
 @section('content')
+@include('template_web.popup')
+
     <main>
 
         <!-- hero start -->
@@ -149,47 +151,29 @@
                 <div class="feature__wrap ul_li">
                     <div class="feature__item ul_li">
                         <div class="icon">
-                            <img src="{{ asset('web') }}/assets/img/icon/feat_01.svg" alt="">
+                            <img src="{{ asset('web') }}/assets/img/icon/feat_01.svg" alt="Pelayanan Terbaik">
                         </div>
                         <div class="content">
-                            <h3>Gratis Ongkir</h3>
-                            <p>Gratis ongkos pengiriman</p>
+                            <h3>Pelayanan Terbaik</h3>
+                            <p>Kami selalu memberikan pelayanan terbaik demi kepuasan pelanggan</p>
                         </div>
                     </div>
                     <div class="feature__item ul_li">
                         <div class="icon">
-                            <img src="{{ asset('web') }}/assets/img/icon/feat_02.svg" alt="">
-                        </div>
-                        <div class="content">
-                            <h3>Pembayaran Aman</h3>
-                            <p>Pembayaran 100% aman</p>
-                        </div>
-                    </div>
-                    <div class="feature__item ul_li">
-                        <div class="icon">
-                            <img src="{{ asset('web') }}/assets/img/icon/feat_03.svg" alt="">
-                        </div>
-                        <div class="content">
-                            <h3>Dukungan 24/7</h3>
-                            <p>Dukungan 24/7</p>
-                        </div>
-                    </div>
-                    <div class="feature__item ul_li">
-                        <div class="icon">
-                            <img src="{{ asset('web') }}/assets/img/icon/feat_04.svg" alt="">
-                        </div>
-                        <div class="content">
-                            <h3>100% Uang Kembali</h3>
-                            <p>100% uang kembali</p>
-                        </div>
-                    </div>
-                    <div class="feature__item ul_li">
-                        <div class="icon">
-                            <img src="{{ asset('web') }}/assets/img/icon/feat_05.svg" alt="">
+                            <img src="{{ asset('web') }}/assets/img/icon/feat_02.svg" alt="Produk Berkualitas">
                         </div>
                         <div class="content">
                             <h3>Produk Berkualitas</h3>
-                            <p>Produk berkualitas terjamin</p>
+                            <p>Hasil cetak yang kami berikan berkualitas tinggi dan memuaskan</p>
+                        </div>
+                    </div>
+                    <div class="feature__item ul_li">
+                        <div class="icon">
+                            <img src="{{ asset('web') }}/assets/img/icon/feat_03.svg" alt="Proses Cepat">
+                        </div>
+                        <div class="content">
+                            <h3>Proses Cepat</h3>
+                            <p>Proses cetak lebih cepat karena menggunakan mesin terbaik</p>
                         </div>
                     </div>
                 </div>
@@ -237,7 +221,6 @@
                                         $gambarProduk = is_array($produk->gambar_produk) && !empty($produk->gambar_produk) 
                                             ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
                                             : asset('web/assets/img/product/img_01.png');
-                                        // Gunakan discount_percentage dari section jika ada, jika tidak gunakan diskon produk
                                         $diskonValue = 0;
                                         if ($recentSection && $recentSection->discount_percentage > 0) {
                                             $diskonValue = $recentSection->discount_percentage;
@@ -246,24 +229,16 @@
                                         }
                                         $hargaDiskon = $diskonValue > 0 ? $produk->harga - ($produk->harga * $diskonValue / 100) : $produk->harga;
                                     @endphp
-                                    <div class="tab-product__item tx-product text-center">
-                                        <div class="thumb">
-                                            <a href="{{ route('shop.detail', $produk->slug) }}"><img
-                                                    src="{{ $gambarProduk }}"
-                                                    alt="{{ $produk->judul }}"></a>
+                                    <div class="tab-product__item tx-product text-center" style="display: flex; flex-direction: column; align-items: center;">
+                                        <div class="thumb" style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                                            <a href="{{ route('shop.detail', $produk->slug) }}">
+                                                <img src="{{ $gambarProduk }}" alt="{{ $produk->judul }}" class="img-fluid" style="max-width: 100%; height: auto;">
+                                            </a>
                                         </div>
-                                        <div class="content">
-                                            <div class="product__review ul_li_center">
-                                                <ul class="rating-star ul_li mr-10">
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                </ul>
-                                                <span>(126)</span>
-                                            </div>
-                                            <h3 class="title"><a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a></h3>
+                                        <div class="content" style="margin-top: 10px; width: 100%;">
+                                            <h3 class="title" style="white-space: normal; overflow: visible;">
+                                                <a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a>
+                                            </h3>
                                             <span class="price">
                                                 Rp {{ number_format($hargaDiskon, 0, ',', '.') }}
                                                 @if($diskonValue > 0)
@@ -271,7 +246,6 @@
                                                 @endif
                                             </span>
                                         </div>
-                                      
                                         @if($recentSection && $recentSection->is_new)
                                             <span class="badge-skew">New</span>
                                         @endif
@@ -293,7 +267,6 @@
                                         $gambarProduk = is_array($produk->gambar_produk) && !empty($produk->gambar_produk) 
                                             ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
                                             : asset('web/assets/img/product/img_01.png');
-                                        // Gunakan discount_percentage dari section jika ada, jika tidak gunakan diskon produk
                                         $diskonValue = 0;
                                         if ($bestSellerSection && $bestSellerSection->discount_percentage > 0) {
                                             $diskonValue = $bestSellerSection->discount_percentage;
@@ -302,24 +275,16 @@
                                         }
                                         $hargaDiskon = $diskonValue > 0 ? $produk->harga - ($produk->harga * $diskonValue / 100) : $produk->harga;
                                     @endphp
-                                    <div class="tab-product__item tx-product text-center">
-                                        <div class="thumb">
-                                            <a href="{{ route('shop.detail', $produk->slug) }}"><img
-                                                    src="{{ $gambarProduk }}"
-                                                    alt="{{ $produk->judul }}"></a>
+                                    <div class="tab-product__item tx-product text-center" style="display: flex; flex-direction: column; align-items: center;">
+                                        <div class="thumb" style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                                            <a href="{{ route('shop.detail', $produk->slug) }}">
+                                                <img src="{{ $gambarProduk }}" alt="{{ $produk->judul }}" class="img-fluid" style="max-width: 100%; height: auto;">
+                                            </a>
                                         </div>
-                                        <div class="content">
-                                            <div class="product__review ul_li_center">
-                                                <ul class="rating-star ul_li mr-10">
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                </ul>
-                                                <span>(126)</span>
-                                            </div>
-                                            <h3 class="title"><a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a></h3>
+                                        <div class="content" style="margin-top: 10px; width: 100%;">
+                                            <h3 class="title" style="white-space: normal; overflow: visible;">
+                                                <a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a>
+                                            </h3>
                                             <span class="price">
                                                 Rp {{ number_format($hargaDiskon, 0, ',', '.') }}
                                                 @if($diskonValue > 0)
@@ -353,7 +318,6 @@
                                         $gambarProduk = is_array($produk->gambar_produk) && !empty($produk->gambar_produk) 
                                             ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
                                             : asset('web/assets/img/product/img_01.png');
-                                        // Gunakan discount_percentage dari section jika ada, jika tidak gunakan diskon produk
                                         $diskonValue = 0;
                                         if ($topSection && $topSection->discount_percentage > 0) {
                                             $diskonValue = $topSection->discount_percentage;
@@ -362,24 +326,16 @@
                                         }
                                         $hargaDiskon = $diskonValue > 0 ? $produk->harga - ($produk->harga * $diskonValue / 100) : $produk->harga;
                                     @endphp
-                                    <div class="tab-product__item tx-product text-center">
-                                        <div class="thumb">
-                                            <a href="{{ route('shop.detail', $produk->slug) }}"><img
-                                                    src="{{ $gambarProduk }}"
-                                                    alt="{{ $produk->judul }}"></a>
+                                    <div class="tab-product__item tx-product text-center" style="display: flex; flex-direction: column; align-items: center;">
+                                        <div class="thumb" style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                                            <a href="{{ route('shop.detail', $produk->slug) }}">
+                                                <img src="{{ $gambarProduk }}" alt="{{ $produk->judul }}" class="img-fluid" style="max-width: 100%; height: auto;">
+                                            </a>
                                         </div>
-                                        <div class="content">
-                                            <div class="product__review ul_li_center">
-                                                <ul class="rating-star ul_li mr-10">
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                </ul>
-                                                <span>(126)</span>
-                                            </div>
-                                            <h3 class="title"><a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a></h3>
+                                        <div class="content" style="margin-top: 10px; width: 100%;">
+                                            <h3 class="title" style="white-space: normal; overflow: visible;">
+                                                <a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a>
+                                            </h3>
                                             <span class="price">
                                                 Rp {{ number_format($hargaDiskon, 0, ',', '.') }}
                                                 @if($diskonValue > 0)
@@ -413,7 +369,6 @@
                                         $gambarProduk = is_array($produk->gambar_produk) && !empty($produk->gambar_produk) 
                                             ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
                                             : asset('web/assets/img/product/img_01.png');
-                                        // Gunakan discount_percentage dari section jika ada, jika tidak gunakan diskon produk
                                         $diskonValue = 0;
                                         if ($topRatingSection && $topRatingSection->discount_percentage > 0) {
                                             $diskonValue = $topRatingSection->discount_percentage;
@@ -422,24 +377,16 @@
                                         }
                                         $hargaDiskon = $diskonValue > 0 ? $produk->harga - ($produk->harga * $diskonValue / 100) : $produk->harga;
                                     @endphp
-                                    <div class="tab-product__item tx-product text-center">
-                                        <div class="thumb">
-                                            <a href="{{ route('shop.detail', $produk->slug) }}"><img
-                                                    src="{{ $gambarProduk }}"
-                                                    alt="{{ $produk->judul }}"></a>
+                                    <div class="tab-product__item tx-product text-center" style="display: flex; flex-direction: column; align-items: center;">
+                                        <div class="thumb" style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                                            <a href="{{ route('shop.detail', $produk->slug) }}">
+                                                <img src="{{ $gambarProduk }}" alt="{{ $produk->judul }}" class="img-fluid" style="max-width: 100%; height: auto;">
+                                            </a>
                                         </div>
-                                        <div class="content">
-                                            <div class="product__review ul_li_center">
-                                                <ul class="rating-star ul_li mr-10">
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                    <li><i class="far fa-star"></i></li>
-                                                </ul>
-                                                <span>(126)</span>
-                                            </div>
-                                            <h3 class="title"><a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a></h3>
+                                        <div class="content" style="margin-top: 10px; width: 100%;">
+                                            <h3 class="title" style="white-space: normal; overflow: visible;">
+                                                <a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a>
+                                            </h3>
                                             <span class="price">
                                                 Rp {{ number_format($hargaDiskon, 0, ',', '.') }}
                                                 @if($diskonValue > 0)
@@ -515,11 +462,20 @@
                                                 $hargaDiskon = $produk->diskon > 0 ? $produk->harga - ($produk->harga * $produk->diskon / 100) : $produk->harga;
                                             @endphp
                                             <div class="product__item">
-                                                <div class="product__img text-center pos-rel mb-20">
-                                                    <a href="{{ route('shop.detail', $produk->slug) }}"><img src="{{ $gambarProduk }}" alt="{{ $produk->judul }}"></a>
+                                                <div class="product__img text-center pos-rel mb-20" style="width:100%; display:flex; justify-content:center; align-items:center;">
+                                                    <a href="{{ route('shop.detail', $produk->slug) }}">
+                                                        <img 
+                                                            src="{{ $gambarProduk }}" 
+                                                            alt="{{ $produk->judul }}" 
+                                                            class="img-fluid" 
+                                                            style="max-width: 100%; height: auto; display: block; margin: 0 auto;"
+                                                        >
+                                                    </a>
                                                 </div>
-                                                <div class="product__content">
-                                                    <h2 class="product__title"><a href="#">{{ Str::limit($produk->judul, 50) }}</a></h2>
+                                                <div class="product__content" style="text-align:center;">
+                                                    <h2 class="product__title" style="margin-bottom:8px; white-space: normal; overflow: visible;">
+                                                        <a href="{{ route('shop.detail', $produk->slug) }}">{{ Str::limit($produk->judul, 50) }}</a>
+                                                    </h2>
                                                     <h4 class="product__price">
                                                         <span class="new">Rp {{ number_format($hargaDiskon, 0, ',', '.') }}</span> 
                                                         @if($produk->diskon > 0)
@@ -527,7 +483,6 @@
                                                         @endif
                                                     </h4>
                                                 </div>
-                                       
                                                 @if($topRatingSection && $topRatingSection->is_new)
                                                     <span class="badge-skew">New</span>
                                                 @endif

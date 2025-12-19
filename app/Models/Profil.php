@@ -21,7 +21,7 @@ class Profil extends Model
         'instagram_perusahaan',
         'facebook_perusahaan',
         'twitter_perusahaan',
-        'linkedin_perusahaan',
+        'tiktok_perusahaan',
         'gambar',
         'slug',
     ];

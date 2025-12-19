@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('instagram_perusahaan')->nullable();
             $table->string('facebook_perusahaan')->nullable();
             $table->string('twitter_perusahaan')->nullable();
-            $table->string('linkedin_perusahaan')->nullable();
+            $table->string('tiktok_perusahaan')->nullable();
             $table->string('slug');
             $table->timestamps();
         });

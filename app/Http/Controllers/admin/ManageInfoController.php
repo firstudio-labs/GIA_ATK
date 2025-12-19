@@ -35,6 +35,7 @@ class ManageInfoController extends Controller
     {
         $validated = $request->validate([
             'judul' => ['required', 'string', 'max:255'],
+            'tipe' => ['required', 'string', 'max:255'],
             'deskripsi' => ['nullable', 'string'],
             'gambar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'status' => ['required', 'in:aktif,nonaktif'],
@@ -53,7 +54,7 @@ class ManageInfoController extends Controller
         }
 
         ManageInfo::create([
-            'tipe' => $validated['tipe'] ?? null,
+            'tipe' => $validated['tipe'],
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'] ?? null,
             'gambar' => $filename,

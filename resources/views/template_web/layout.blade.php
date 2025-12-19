@@ -60,7 +60,6 @@
         @include('template_web.footer')
         <!-- footer end -->
 
-        @include('template_web.popup')
 
 
 
