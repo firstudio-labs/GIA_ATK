@@ -37,6 +37,20 @@
               </div>
             </div>
             <div class="card-body">
+              @if (session('success'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                  {{ session('success') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
+              @if (session('error'))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                  {{ session('error') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
               <div class="row">
                 <!-- Informasi Customer -->
                 <div class="col-md-6 mb-4">
@@ -87,6 +101,52 @@
                         <label class="text-muted small d-block">Total Item</label>
                         <strong><span class="badge bg-primary">{{ $pesanan->quantity }} item</span></strong>
                       </div>
+                      <div class="mb-3">
+                        <label class="text-muted small d-block">Status Pesanan</label>
+                        @php
+                          $statusColors = [
+                            'Pending' => 'bg-warning',
+                            'Diterima' => 'bg-info',
+                            'Diproses' => 'bg-primary',
+                            'Selesai' => 'bg-success'
+                          ];
+                          $color = $statusColors[$pesanan->status ?? 'Pending'] ?? 'bg-secondary';
+                        @endphp
+                        <strong><span class="badge {{ $color }}" style="font-size: 0.9em;">{{ $pesanan->status ?? 'Pending' }}</span></strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Update Status -->
+              <div class="row">
+                <div class="col-12 mb-4">
+                  <div class="card border">
+                    <div class="card-header bg-warning text-dark">
+                      <h6 class="mb-0"><i class="bx bx-edit me-2"></i>Update Status Pesanan</h6>
+                    </div>
+                    <div class="card-body">
+                      <form action="{{ route('daftar-riwayat-pesanan.update-status', $pesanan->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="row align-items-end">
+                          <div class="col-md-4">
+                            <label for="status" class="form-label">Status Pesanan</label>
+                            <select name="status" id="status" class="form-select" required>
+                              <option value="Pending" {{ ($pesanan->status ?? 'Pending') == 'Pending' ? 'selected' : '' }}>Pending</option>
+                              <option value="Diterima" {{ ($pesanan->status ?? 'Pending') == 'Diterima' ? 'selected' : '' }}>Diterima</option>
+                              <option value="Diproses" {{ ($pesanan->status ?? 'Pending') == 'Diproses' ? 'selected' : '' }}>Diproses</option>
+                              <option value="Selesai" {{ ($pesanan->status ?? 'Pending') == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary">
+                              <i class="bx bx-save"></i> Update Status
+                            </button>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>

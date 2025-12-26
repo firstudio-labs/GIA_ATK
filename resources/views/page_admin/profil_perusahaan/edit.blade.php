@@ -44,7 +44,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               @endif
-              <form action="{{ route('profil-perusahaan.update', $profil->id) }}" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('profil-perusahaan.update', $profil) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -100,8 +100,8 @@
                       @enderror
                     </div>
                     <div class="form-group">
-                      <label class="form-label">LinkedIn</label>
-                      <input type="text" name="linkedin_perusahaan" class="form-control @error('linkedin_perusahaan') is-invalid @enderror" value="{{ old('linkedin_perusahaan', $profil->linkedin_perusahaan) }}" placeholder="Masukkan username LinkedIn">
+                      <label class="form-label">TikTok</label>
+                      <input type="text" name="tiktok_perusahaan" class="form-control @error('tiktok_perusahaan') is-invalid @enderror" value="{{ old('tiktok_perusahaan', $profil->tiktok_perusahaan) }}" placeholder="Masukkan username TikTok">
                       @error('linkedin_perusahaan')
                         <div class="invalid-feedback">{{ $message }}</div>
                       @enderror

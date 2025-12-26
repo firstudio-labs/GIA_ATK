@@ -1,28 +1,34 @@
+@php
+    $info = \App\Models\ManageInfo::where('status', 'aktif')->where('tipe', 'popup')->first();
+@endphp
+@if($info)
 <!-- start newsletter-popup-area-section -->
-<section class="newsletter-popup-area-section">
+<section class="newsletter-popup-area-section" style="display: block;">
+    <div class="newsletter-popup-overlay"></div>
     <div class="newsletter-popup-area">
-        <div class="newsletter-popup-ineer">
-            <button class="btn newsletter-close-btn"><i class="fal fa-times"></i></button>
-            <div class="img-holder">
-                <img src="{{ asset('web') }}/assets/img/bg/newsletter.jpg" alt>
-            </div>
-            <div class="details">
-                <h4>Get 45% discount shipped to your inbox</h4>
-                <p>Subscribe to the radios eCommerce newsletter to receive timely updates to your favorite products</p>
-                <form>
-                    <div>
-                        <input type="email" placeholder="Enter your email" />
-                        <button type="submit">Subscribe</button>
+        <div class="newsletter-popup-container">
+            <button class="newsletter-popup-close" onclick="document.querySelector('.newsletter-popup-area-section').style.display='none'" aria-label="Tutup popup">
+                <i class="fal fa-times"></i>
+            </button>
+
+            <div class="newsletter-popup-content">
+                <div class="newsletter-popup-image">
+                    @if($info->gambar)
+                        <img src="{{ asset('info/gambar/'.$info->gambar) }}" alt="{{ $info->judul ?? 'Popup Image' }}">
+                    @else
+                        <img src="{{ asset('web/assets/img/bg/newsletter.jpg') }}" alt="Popup Image">
+                    @endif
+                </div>
+
+                <div class="newsletter-popup-text">
+                    <h3 class="newsletter-popup-title">{{ $info->judul }}</h3>
+                    <div class="newsletter-popup-description">
+                        {!! nl2br(e($info->deskripsi)) !!}
                     </div>
-                    <div>
-                        <label class="checkbox-holder"> Don't show this popup again!
-                            <input type="checkbox" class="show-message">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div> 
+    </div>
 </section>
 <!-- end newsletter-popup-area-section -->
+@endif

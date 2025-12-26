@@ -72,8 +72,8 @@ class KeranjangController extends Controller
         }
 
         try {
-            $request->validate([
-                'produk_id' => 'required|exists:manage_produks,id',
+        $request->validate([
+            'produk_id' => 'required|exists:manage_produks,id',
                 'quantity' => 'required|integer|min:1|max:999',
             ], [
                 'produk_id.required' => 'Produk ID harus diisi',
@@ -82,41 +82,41 @@ class KeranjangController extends Controller
                 'quantity.integer' => 'Jumlah harus berupa angka',
                 'quantity.min' => 'Jumlah minimal 1',
                 'quantity.max' => 'Jumlah maksimal 999',
-            ]);
+        ]);
 
-            $produk = ManageProduk::findOrFail($request->produk_id);
+        $produk = ManageProduk::findOrFail($request->produk_id);
 
-            // Hitung harga dengan diskon jika ada
-            $harga = $produk->diskon > 0 
-                ? $produk->harga - ($produk->harga * $produk->diskon / 100)
-                : $produk->harga;
+        // Hitung harga dengan diskon jika ada
+        $harga = $produk->diskon > 0 
+            ? $produk->harga - ($produk->harga * $produk->diskon / 100)
+            : $produk->harga;
 
-            // Cek apakah produk sudah ada di keranjang
-            $keranjang = Keranjang::where('user_id', Auth::id())
-                ->where('produk_id', $request->produk_id)
-                ->first();
+        // Cek apakah produk sudah ada di keranjang
+        $keranjang = Keranjang::where('user_id', Auth::id())
+            ->where('produk_id', $request->produk_id)
+            ->first();
 
-            if ($keranjang) {
-                // Update quantity jika sudah ada
-                $keranjang->quantity += $request->quantity;
-                $keranjang->harga = $harga;
-                $keranjang->save();
+        if ($keranjang) {
+            // Update quantity jika sudah ada
+            $keranjang->quantity += $request->quantity;
+            $keranjang->harga = $harga;
+            $keranjang->save();
                 
                 $message = 'Jumlah produk di keranjang berhasil diperbarui';
-            } else {
-                // Buat baru jika belum ada
-                Keranjang::create([
-                    'user_id' => Auth::id(),
-                    'produk_id' => $request->produk_id,
-                    'quantity' => $request->quantity,
-                    'harga' => $harga,
-                ]);
+        } else {
+            // Buat baru jika belum ada
+            Keranjang::create([
+                'user_id' => Auth::id(),
+                'produk_id' => $request->produk_id,
+                'quantity' => $request->quantity,
+                'harga' => $harga,
+            ]);
                 
                 $message = 'Produk berhasil ditambahkan ke keranjang';
-            }
+        }
 
-            return response()->json([
-                'success' => true,
+        return response()->json([
+            'success' => true,
                 'message' => $message
             ], 200);
         } catch (\Illuminate\Validation\ValidationException $e) {

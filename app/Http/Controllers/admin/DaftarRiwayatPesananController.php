@@ -34,5 +34,22 @@ class DaftarRiwayatPesananController extends Controller
         
         return view('page_admin.riwayat_pesanan.show', compact('pesanan'));
     }
+
+    /**
+     * Update the status of the specified resource.
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:Pending,Diterima,Diproses,Selesai'
+        ]);
+
+        $pesanan = Pesanan::findOrFail($id);
+        $pesanan->status = $request->status;
+        $pesanan->save();
+
+        return redirect()->route('daftar-riwayat-pesanan.show', $id)
+            ->with('success', 'Status pesanan berhasil diubah menjadi ' . $request->status);
+    }
 }
 

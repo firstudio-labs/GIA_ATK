@@ -99,6 +99,7 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::resource('owner-whatsapp', OwnerWhatsappController::class);
     Route::get('daftar-riwayat-pesanan', [DaftarRiwayatPesananController::class, 'index'])->name('daftar-riwayat-pesanan.index');
     Route::get('daftar-riwayat-pesanan/{id}', [DaftarRiwayatPesananController::class, 'show'])->name('daftar-riwayat-pesanan.show');
+    Route::put('daftar-riwayat-pesanan/{id}/update-status', [DaftarRiwayatPesananController::class, 'updateStatus'])->name('daftar-riwayat-pesanan.update-status');
     Route::get('daftar-customer', [DaftarCustomerController::class, 'index'])->name('daftar-customer.index');
     Route::get('daftar-customer/{id}', [DaftarCustomerController::class, 'show'])->name('daftar-customer.show');
 });

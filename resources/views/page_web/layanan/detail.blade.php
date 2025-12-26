@@ -33,7 +33,7 @@
                    <div class="col-lg-8">
                        @if($manageLayanan->gambar_layanan)
                        <div class="service-details-image">
-                           <img src="{{ asset('gambar_layanan/gambar/' . $manageLayanan->gambar_layanan) }}" alt="{{ $manageLayanan->judul_layanan }}" class="img-fluid">
+                           <img src="{{ asset('gambar_layanan/gambar/' . $manageLayanan->gambar_layanan) }}" alt="{{ $manageLayanan->judul_layanan }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1;">
                        </div>
                        @endif
                        <div class="service-details-content">
@@ -136,9 +136,9 @@
                 </div>
                 <div class="cta-shape wow fadeInUp" data-wow-delay=".3s"> 
                     @if(isset($manageLayanan) && $manageLayanan->gambar_layanan)
-                        <img src="{{ asset('gambar_layanan/gambar/' . $manageLayanan->gambar_layanan) }}" alt="{{ $manageLayanan->judul_layanan }}">
+                        <img src="{{ asset('gambar_layanan/gambar/' . $manageLayanan->gambar_layanan) }}" alt="{{ $manageLayanan->judul_layanan }}" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1;">
                     @else
-                        <img src="{{ asset('web/assets/img/cta-2-shape2.png') }}" alt="img">
+                        <img src="{{ asset('web/assets/img/cta-2-shape2.png') }}" alt="img" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1;">
                     @endif
                 </div>
             </div>

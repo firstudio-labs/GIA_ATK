@@ -85,7 +85,7 @@
                                                         : asset('web/assets/img/product/p-1.jpg');
                                                 @endphp
                                                 <a href="{{ route('shop.detail', $produk->slug) }}">
-                                                    <img src="{{ $gambar }}" alt="{{ $produk->judul }}">
+                                                    <img src="{{ $gambar }}" alt="{{ $produk->judul }}" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; display: block;">
                                                 </a>
                                                 <ul class="product__action">
                                                     <li>
@@ -107,17 +107,10 @@
                                                     @endif
                                                 </ul>
                                             </div>
-                                            <div class="product-info">
-                                                <div class="product__review ul_li">
-                                                    <ul class="rating-star ul_li mr-10">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <h2 class="product__title">
+                                            <div class="product-info" style="padding-top:15px;">
+                                                {{-- Hapus rating --}}
+
+                                                <h2 class="product__title" style="min-height: 44px;">
                                                     <a href="{{ route('shop.detail', $produk->slug) }}">{{ $produk->judul }}</a>
                                                 </h2>
                                                 @if($produk->kategori)

@@ -10,6 +10,7 @@ class ManageInfo extends Model
     use HasFactory;
 
     protected $fillable = [
+        'tipe',
         'judul',
         'deskripsi',
         'gambar',

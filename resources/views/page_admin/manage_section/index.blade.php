@@ -3,21 +3,7 @@
 @section('content')
 <section class="pc-container">
     <div class="pc-content">
-      <style>
-        :root{--pri:#4F46E5;--pri-600:#4338CA;--sec:#0EA5E9;--acc:#22C55E;--warn:#F59E0B;--danger:#EF4444;--muted:#6b7280}
-        .card{border:0;border-radius:12px}
-        .card-header{border-bottom:0;border-top-left-radius:12px;border-top-right-radius:12px;background:linear-gradient(135deg,var(--pri),var(--sec));color:#fff}
-        .btn-primary{background:var(--pri);border-color:var(--pri)}
-        .btn-primary:hover{background:var(--pri-600);border-color:var(--pri-600)}
-        .btn-warning{background:var(--warn);border-color:var(--warn)}
-        .btn-info{background:var(--sec);border-color:var(--sec)}
-        .btn-danger{background:var(--danger);border-color:var(--danger)}
-        .badge.bg-success{background:var(--acc)!important}
-        .badge.bg-secondary{background:var(--muted)!important}
-        .page-header-title h2{font-weight:700}
-        .breadcrumb .breadcrumb-item a{color:var(--pri)}
-        table.dataTable thead th{background:#f8fafc;color:#111827}
-      </style>
+   
       <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">

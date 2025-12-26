@@ -33,6 +33,7 @@
                                         <tr>
                                             <th class="woocommerce-orders-table__header">Order ID</th>
                                             <th class="woocommerce-orders-table__header">Tanggal Pesanan</th>
+                                            <th class="woocommerce-orders-table__header">Status</th>
                                             <th class="woocommerce-orders-table__header">Jumlah Item</th>
                                             <th class="woocommerce-orders-table__header">Total</th>
                                             <th class="woocommerce-orders-table__header">Aksi</th>
@@ -46,6 +47,18 @@
                                                 </td>
                                                 <td class="woocommerce-orders-table__cell" data-title="Tanggal">
                                                     {{ \Carbon\Carbon::parse($pesanan->created_at)->format('d M Y, H:i') }}
+                                                </td>
+                                                <td class="woocommerce-orders-table__cell" data-title="Status">
+                                                    @php
+                                                      $statusColors = [
+                                                        'Pending' => 'bg-warning',
+                                                        'Diterima' => 'bg-info',
+                                                        'Diproses' => 'bg-primary',
+                                                        'Selesai' => 'bg-success'
+                                                      ];
+                                                      $color = $statusColors[$pesanan->status ?? 'Pending'] ?? 'bg-secondary';
+                                                    @endphp
+                                                    <span class="badge {{ $color }}">{{ $pesanan->status ?? 'Pending' }}</span>
                                                 </td>
                                                 <td class="woocommerce-orders-table__cell" data-title="Item">
                                                     <span class="badge bg-primary">{{ $pesanan->quantity }} item</span>

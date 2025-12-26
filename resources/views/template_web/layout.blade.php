@@ -2,6 +2,7 @@
 <html lang="zxx">
 @php
     $profil = \App\Models\Profil::first();
+    $ownerWhatsapp = \App\Models\OwnerWhatsapp::first();
 @endphp
 <head>
 
@@ -13,7 +14,7 @@
 
     <title>Home - {{ $profil->nama_perusahaan }}</title>
 
-    <link rel="shortcut icon" href="{{ asset('web') }}/assets/img/favicon.png" type="images/x-icon"/>
+    <link rel="shortcut icon" href="{{ ($profil && $profil->logo_perusahaan) ? asset('upload/profil/' . $profil->logo_perusahaan) : asset('web/assets/img/favicon.png') }}" type="image/x-icon"/>
 
     <!-- css include -->
     <link rel="stylesheet" href="{{ asset('web') }}/assets/css/bootstrap.min.css">
@@ -40,6 +41,21 @@
         </div>
         <!-- preloder end  -->
 
+        <!-- whatsapp button start -->
+        @if($ownerWhatsapp && $ownerWhatsapp->no_wa)
+        <div class="whatsapp-float">
+            @php
+                $no_wa_clean = preg_replace('/[^0-9]/', '', $ownerWhatsapp->no_wa);
+                $pesan = "Halo, saya ingin bertanya tentang produk Anda";
+                $waLink = "https://wa.me/" . $no_wa_clean . "?text=" . urlencode($pesan);
+            @endphp
+            <a href="{{ $waLink }}" target="_blank" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+        @endif
+        <!-- whatsapp button end -->
+
         <!-- back to top start -->
         <div class="progress-wrap">
             <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
@@ -60,7 +76,6 @@
         @include('template_web.footer')
         <!-- footer end -->
 
-        @include('template_web.popup')
 
 
 
@@ -84,7 +99,36 @@
     
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
+    <!-- Floating Buttons Script -->
+    <script>
+        $(document).ready(function() {
+            // WhatsApp Button and Back to Top functionality
+            $(window).on('scroll', function() {
+                var scrolled = $(window).scrollTop();
+                var $whatsappFloat = $('.whatsapp-float');
+                var $progressWrap = $('.progress-wrap');
+
+                if (scrolled > 300) {
+                    $whatsappFloat.addClass('active-whatsapp');
+                    $progressWrap.addClass('active-progress');
+                } else {
+                    $whatsappFloat.removeClass('active-whatsapp');
+                    $progressWrap.removeClass('active-progress');
+                }
+            });
+
+            // Back to Top functionality
+            $('.progress-wrap').on('click', function(event) {
+                event.preventDefault();
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+        });
+    </script>
+
     @yield('script')
 </body>
 

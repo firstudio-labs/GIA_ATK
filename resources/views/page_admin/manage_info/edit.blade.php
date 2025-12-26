@@ -38,7 +38,22 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="form-label">Tipe</label>
+                      <select name="tipe" class="form-control @error('tipe') is-invalid @enderror">
+                        <option value="">Pilih Tipe</option>
+                        <option value="popup" {{ old('tipe', $manageInfo->tipe)==='popup'?'selected':'' }}>Popup</option>
+                        <option value="banner" {{ old('tipe', $manageInfo->tipe)==='banner'?'selected':'' }}>Banner</option>
+                        <option value="lainnya" {{ old('tipe', $manageInfo->tipe)==='lainnya'?'selected':'' }}>Lainnya</option>
+                      </select>
+                      @error('tipe')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                      <small class="text-muted">Pilih "Popup" untuk popup newsletter</small>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label class="form-label">Judul <span class="text-danger">*</span></label>
                       <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul', $manageInfo->judul) }}" placeholder="Masukkan judul" required>

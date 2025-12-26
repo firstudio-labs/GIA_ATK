@@ -73,6 +73,7 @@
                       <th>Nama Customer</th>
                       <th>Email</th>
                       <th>Tanggal Pesanan</th>
+                      <th>Status</th>
                       <th>Jumlah Item</th>
                       <th>Subtotal</th>
                       <th>Total</th>
@@ -87,6 +88,18 @@
                       <td>{{ $pesanan->user->name ?? 'N/A' }}</td>
                       <td>{{ $pesanan->user->email ?? 'N/A' }}</td>
                       <td>{{ \Carbon\Carbon::parse($pesanan->created_at)->format('d M Y, H:i') }}</td>
+                      <td>
+                        @php
+                          $statusColors = [
+                            'Pending' => 'bg-warning',
+                            'Diterima' => 'bg-info',
+                            'Diproses' => 'bg-primary',
+                            'Selesai' => 'bg-success'
+                          ];
+                          $color = $statusColors[$pesanan->status ?? 'Pending'] ?? 'bg-secondary';
+                        @endphp
+                        <span class="badge {{ $color }}">{{ $pesanan->status ?? 'Pending' }}</span>
+                      </td>
                       <td><span class="badge bg-primary">{{ $pesanan->quantity }} item</span></td>
                       <td>Rp {{ number_format($pesanan->sub_total, 0, ',', '.') }}</td>
                       <td><strong>Rp {{ number_format($pesanan->total, 0, ',', '.') }}</strong></td>
@@ -98,7 +111,7 @@
                     </tr>
                     @empty
                     <tr>
-                      <td colspan="9" class="text-center">Tidak ada data pesanan</td>
+                      <td colspan="10" class="text-center">Tidak ada data pesanan</td>
                     </tr>
                     @endforelse
                   </tbody>
@@ -109,6 +122,7 @@
                       <th>Nama Customer</th>
                       <th>Email</th>
                       <th>Tanggal Pesanan</th>
+                      <th>Status</th>
                       <th>Jumlah Item</th>
                       <th>Subtotal</th>
                       <th>Total</th>

@@ -38,7 +38,7 @@
                                     @foreach($gambars as $idx => $gambar)
                                         <div class="tab-pane {{ $idx === 0 ? 'show active' : '' }}" id="thumb{{ $idx + 1 }}" role="tabpanel" aria-labelledby="thumb{{ $idx + 1 }}-tab">
                                             <div class="pl_thumb">
-                                                <img src="{{ asset('produk/gambar/' . $gambar) }}" alt="{{ $produk->judul }}">
+                                                <img src="{{ asset('produk/gambar/' . $gambar) }}" alt="{{ $produk->judul }}" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1;">
                                             </div>
                                         </div>
                                     @endforeach
@@ -57,7 +57,7 @@
                                     @foreach($gambars as $idx => $gambar)
                                         <li class="nav-item">
                                             <button class="nav-link {{ $idx === 0 ? 'active' : '' }}" id="thumb{{ $idx + 1 }}-tab" data-bs-toggle="tab" data-bs-target="#thumb{{ $idx + 1 }}" type="button" role="tab" aria-controls="thumb{{ $idx + 1 }}" aria-selected="{{ $idx === 0 ? 'true' : 'false' }}">
-                                                <img src="{{ asset('produk/gambar/' . $gambar) }}" alt="Thumbnail {{ $idx + 1 }}">
+                                                <img src="{{ asset('produk/gambar/' . $gambar) }}" alt="Thumbnail {{ $idx + 1 }}" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1;">
                                             </button>
                                         </li>
                                     @endforeach
@@ -249,7 +249,7 @@
                                                         : asset('web/assets/img/product/p-1.jpg');
                                                 @endphp
                                                 <a href="{{ route('shop.detail', $relatedProduk->slug) }}">
-                                                    <img src="{{ $gambar }}" alt="{{ $relatedProduk->judul }}">
+                                                    <img src="{{ $gambar }}" alt="{{ $relatedProduk->judul }}" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1;">
                                                 </a>
                                                 <ul class="product__action">
                                                     <li>

@@ -15,7 +15,7 @@ class KontakWebController extends Controller
     public function index()
     {
         $profil = Profil::first();
-        $hcaptchaSiteKey = '3c982cb8-bc8a-4204-bfe2-2178e2ea53a8'; // Site key untuk hCaptcha (ganti dengan site key Anda)
+        $hcaptchaSiteKey = env('HCAPTCHA_SITE_KEY', '3c982cb8-bc8a-4204-bfe2-2178e2ea53a8');
         return view('page_web.kontak.index', compact('profil', 'hcaptchaSiteKey'));
     }
 
@@ -43,7 +43,12 @@ class KontakWebController extends Controller
 
         // Verifikasi hCaptcha
         $hCaptchaResponse = $request->input('h-captcha-response');
-        $secret = 'ES_e6976be5b1c94610aa235676ad5ecf66';
+        $secret = env('HCAPTCHA_SECRET_KEY');
+        
+        if (!$secret) {
+            Alert::toast('Konfigurasi hCaptcha belum lengkap.', 'error')->position('top-end');
+            return redirect()->back()->withInput();
+        }
 
         try {
             $verify = file_get_contents("https://hcaptcha.com/siteverify?secret={$secret}&response={$hCaptchaResponse}");

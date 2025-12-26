@@ -155,7 +155,7 @@
                                             ? asset('gambar_layanan/gambar/' . $manageLayanan->gambar_layanan)
                                             : asset('web/assets/img/service/01.jpg');
                                     @endphp
-                                    <img src="{{ $gambar }}" alt="img">
+                                    <img src="{{ $gambar }}" alt="img" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1;">
                                     <a href="{{ route('layanan.detail', $manageLayanan->judul_layanan) }}" class="icon">
                                         <i class="far fa-long-arrow-right"></i>
                                     </a>

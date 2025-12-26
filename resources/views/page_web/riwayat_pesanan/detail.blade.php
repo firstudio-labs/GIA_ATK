@@ -29,6 +29,22 @@
                     <div class="woocommerce">
                         <h2 class="woocommerce-order-title mb-30">Detail Pesanan - {{ $pesanan->order_id }}</h2>
 
+                        @if (session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                {{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
                         <div class="row mt-none-30">
                             <!-- Detail Produk -->
                             <div class="col-lg-8 mt-30">
@@ -89,6 +105,19 @@
                                             <strong>Total Item:</strong><br>
                                             <span class="badge bg-primary">{{ $pesanan->quantity }} item</span>
                                         </div>
+                                        <div class="woocommerce-customer-details-item mb-20">
+                                            <strong>Status Pesanan:</strong><br>
+                                            @php
+                                              $statusColors = [
+                                                'Pending' => 'bg-warning',
+                                                'Diterima' => 'bg-info',
+                                                'Diproses' => 'bg-primary',
+                                                'Selesai' => 'bg-success'
+                                              ];
+                                              $color = $statusColors[$pesanan->status ?? 'Pending'] ?? 'bg-secondary';
+                                            @endphp
+                                            <span class="badge {{ $color }}">{{ $pesanan->status ?? 'Pending' }}</span>
+                                        </div>
                                         <hr class="mt-20 mb-20">
                                         <div class="woocommerce-order-summary">
                                             <div class="woocommerce-order-summary-item mb-15">
@@ -108,12 +137,19 @@
                                 </div>
 
                                 <div class="woocommerce-order-actions mt-30">
-                                    <a href="{{ route('riwayat-pesanan.invoice', $pesanan->id) }}" target="_blank" class="thm-btn thm-btn__2 w-100 mb-15">
-                                        <span class="btn-wrap">
-                                            <span>Cetak Invoice</span>
-                                            <span>Cetak Invoice</span>
-                                        </span>
-                                    </a>
+                                    @if(($pesanan->status ?? 'Pending') === 'Selesai')
+                                        <a href="{{ route('riwayat-pesanan.invoice', $pesanan->id) }}" target="_blank" class="thm-btn thm-btn__2 w-100 mb-15">
+                                            <span class="btn-wrap">
+                                                <span>Cetak Invoice</span>
+                                                <span>Cetak Invoice</span>
+                                            </span>
+                                        </a>
+                                    @else
+                                        <div class="alert alert-warning mb-15" role="alert">
+                                            <i class="fas fa-info-circle me-2"></i>
+                                            Invoice hanya dapat diakses setelah pesanan selesai.
+                                        </div>
+                                    @endif
                                     <a href="{{ route('riwayat-pesanan.index') }}" class="thm-btn thm-btn__2 w-100 mb-15" style="background: #6c757d;">
                                         <span class="btn-wrap">
                                             <span>Kembali ke Riwayat</span>

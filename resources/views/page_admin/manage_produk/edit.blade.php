@@ -3,18 +3,7 @@
 @section('content')
 <section class="pc-container">
     <div class="pc-content">
-      <style>
-        :root{--pri:#4F46E5;--pri-600:#4338CA;--sec:#0EA5E9;--acc:#22C55E;--warn:#F59E0B;--danger:#EF4444;--muted:#6b7280}
-        .card{border:0;border-radius:12px}
-        .card-header{border-bottom:0;border-top-left-radius:12px;border-top-right-radius:12px;background:linear-gradient(135deg,var(--pri),var(--sec));color:#fff}
-        .btn-primary{background:var(--pri);border-color:var(--pri)}
-        .btn-primary:hover{background:var(--pri-600);border-color:var(--pri-600)}
-        .btn-warning{background:var(--warn);border-color:var(--warn)}
-        .btn-info{background:var(--sec);border-color:var(--sec)}
-        .btn-danger{background:var(--danger);border-color:var(--danger)}
-        .page-header-title h2{font-weight:700}
-        .breadcrumb .breadcrumb-item a{color:var(--pri)}
-      </style>
+     
       <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">
@@ -116,16 +105,25 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label class="form-label">Model</label>
-                      @php $existingModels = is_array($manageProduk->model) ? $manageProduk->model : []; @endphp
-                      @if(count($existingModels))
+                      @php
+                        $existingModels = is_array($manageProduk->model) ? $manageProduk->model : [];
+                        $oldModels = old('model', []);
+                      @endphp
+                      @if(count($existingModels) || (old('model') && is_array(old('model'))))
                         <div class="mb-2">
-                          @foreach($existingModels as $idx => $model)
-                            <div class="model-row mb-2 p-2 border rounded existing-model">
-                              <div class="d-flex justify-content-between align-items-center">
-                                <input type="text" name="model[]" class="form-control me-2" value="{{ $model }}" />
-                                <button type="button" class="btn btn-sm btn-danger remove-model-row"><i class="bx bx-trash"></i></button>
+                          @php
+                            $allModels = array_merge($existingModels, array_filter($oldModels));
+                            $allModels = array_unique($allModels);
+                          @endphp
+                          @foreach($allModels as $idx => $model)
+                            @if(!empty($model))
+                              <div class="model-row mb-2 p-2 border rounded existing-model">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <input type="text" name="model[]" class="form-control me-2" value="{{ $model }}" />
+                                  <button type="button" class="btn btn-sm btn-danger remove-model-row"><i class="bx bx-trash"></i></button>
+                                </div>
                               </div>
-                            </div>
+                            @endif
                           @endforeach
                         </div>
                       @endif
@@ -140,16 +138,25 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label class="form-label">Tags</label>
-                      @php $existingTags = is_array($manageProduk->tags) ? $manageProduk->tags : []; @endphp
-                      @if(count($existingTags))
+                      @php
+                        $existingTags = is_array($manageProduk->tags) ? $manageProduk->tags : [];
+                        $oldTags = old('tags', []);
+                      @endphp
+                      @if(count($existingTags) || (old('tags') && is_array(old('tags'))))
                         <div class="mb-2">
-                          @foreach($existingTags as $idx => $tag)
-                            <div class="tag-row mb-2 p-2 border rounded existing-tag">
-                              <div class="d-flex justify-content-between align-items-center">
-                                <input type="text" name="tags[]" class="form-control me-2" value="{{ $tag }}" />
-                                <button type="button" class="btn btn-sm btn-danger remove-tag-row"><i class="bx bx-trash"></i></button>
+                          @php
+                            $allTags = array_merge($existingTags, array_filter($oldTags));
+                            $allTags = array_unique($allTags);
+                          @endphp
+                          @foreach($allTags as $idx => $tag)
+                            @if(!empty($tag))
+                              <div class="tag-row mb-2 p-2 border rounded existing-tag">
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <input type="text" name="tags[]" class="form-control me-2" value="{{ $tag }}" />
+                                  <button type="button" class="btn btn-sm btn-danger remove-tag-row"><i class="bx bx-trash"></i></button>
+                                </div>
                               </div>
-                            </div>
+                            @endif
                           @endforeach
                         </div>
                       @endif
@@ -226,7 +233,24 @@
                         <span class="text-muted">Tambah gambar baru</span>
                         <button type="button" class="btn btn-sm btn-success" id="addImageRow"><i class="bx bx-plus"></i> Tambah Gambar</button>
                       </div>
-                      <div id="imagesContainer"></div>
+                      <div id="imagesContainer">
+                        @if(old('gambar_produk') && is_array(old('gambar_produk')))
+                          @foreach(old('gambar_produk') as $index => $gambar)
+                            @if($gambar && is_string($gambar))
+                              <div class="image-row mb-3 p-3 border rounded">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                  <h6 class="mb-0">Gambar Baru #{{ $index + 1 }}</h6>
+                                  <button type="button" class="btn btn-sm btn-danger remove-image-row"><i class="bx bx-trash"></i> Hapus</button>
+                                </div>
+                                <div class="mb-2">
+                                  <small class="text-success">File sudah dipilih: {{ basename($gambar) }}</small>
+                                </div>
+                                <input type="file" name="gambar_produk[]" accept="image/*" class="form-control" />
+                              </div>
+                            @endif
+                          @endforeach
+                        @endif
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -245,6 +269,73 @@
 @endsection
 
 @section('script')
+<script>
+  // Client-side validation
+  document.getElementById('produkForm').addEventListener('submit', function(e) {
+    let isValid = true;
+    const errors = [];
+
+    // Validate required fields
+    const requiredFields = ['judul', 'sku', 'harga', 'deskripsi'];
+    requiredFields.forEach(field => {
+      const element = document.getElementById(field);
+      if (element && !element.value.trim()) {
+        isValid = false;
+        errors.push(`${field.charAt(0).toUpperCase() + field.slice(1)} wajib diisi`);
+      }
+    });
+
+    // Validate select fields
+    const selectFields = ['kategoriSelect', 'subKategoriSelect'];
+    selectFields.forEach(field => {
+      const element = document.getElementById(field);
+      if (element && !element.value) {
+        isValid = false;
+        const label = field === 'kategoriSelect' ? 'Kategori' : 'Sub Kategori';
+        errors.push(`${label} wajib dipilih`);
+      }
+    });
+
+    // Validate harga
+    const harga = document.getElementById('harga');
+    if (harga && harga.value) {
+      const hargaValue = parseFloat(harga.value);
+      if (hargaValue < 0) {
+        isValid = false;
+        errors.push('Harga tidak boleh negatif');
+      } else if (hargaValue > 999999999) {
+        isValid = false;
+        errors.push('Harga terlalu besar');
+      }
+    }
+
+    // Validate diskon
+    const diskon = document.querySelector('input[name="diskon"]');
+    if (diskon && diskon.value) {
+      const diskonValue = parseInt(diskon.value);
+      if (diskonValue < 0 || diskonValue > 100) {
+        isValid = false;
+        errors.push('Diskon harus antara 0-100%');
+      }
+    }
+
+    // Show errors
+    if (!isValid) {
+      e.preventDefault();
+      if (typeof Swal !== 'undefined') {
+        Swal.fire({
+          title: 'Validasi Error',
+          html: errors.join('<br>'),
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      } else {
+        alert('Error Validasi:\n' + errors.join('\n'));
+      }
+      return false;
+    }
+  });
+</script>
 <script>
   function fetchSubKategori(kategoriId, preselected = '') {
     const subSelect = document.getElementById('subKategoriSelect');

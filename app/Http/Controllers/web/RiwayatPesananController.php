@@ -34,6 +34,12 @@ class RiwayatPesananController extends Controller
             ->with('user')
             ->firstOrFail();
         
+        // Cek apakah status pesanan sudah Selesai
+        if ($pesanan->status !== 'Selesai') {
+            return redirect()->route('riwayat-pesanan.detail', $id)
+                ->with('error', 'Invoice hanya dapat diakses setelah pesanan selesai.');
+        }
+        
         $profil = Profil::first();
         
         return view('page_web.riwayat_pesanan.invoice', compact('pesanan', 'profil'));

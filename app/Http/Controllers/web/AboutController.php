@@ -12,8 +12,7 @@ class AboutController extends Controller
     public function index()
     {
         $profil = Profil::first();
-        $manageLayanans = ManageLayanan::orderBy('created_at', 'desc')->take(4)->get();
         $ownerWhatsapp = OwnerWhatsapp::first();
-        return view('page_web.about.index', compact('profil', 'manageLayanans', 'ownerWhatsapp'));
+        return view('page_web.about.index', compact('profil', 'ownerWhatsapp'));
     }
 }
