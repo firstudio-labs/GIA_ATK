@@ -155,7 +155,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="h-captcha" data-sitekey="{{ $hcaptchaSiteKey ?? '3c982cb8-bc8a-4204-bfe2-2178e2ea53a8' }}"></div>
+                                        <div class="h-captcha" data-sitekey="{{ env('HCAPTCHA_SITE_KEY', '3c982cb8-bc8a-4204-bfe2-2178e2ea53a8') }}"></div>
                                         @error('h-captcha-response')
                                             <div class="text-danger small mt-1">{{ $message }}</div>
                                         @enderror
