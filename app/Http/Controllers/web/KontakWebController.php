@@ -15,7 +15,7 @@ class KontakWebController extends Controller
     public function index()
     {
         $profil = Profil::first();
-        $hcaptchaSiteKey = env('HCAPTCHA_SITE_KEY', '3c982cb8-bc8a-4204-bfe2-2178e2ea53a8');
+        $hcaptchaSiteKey = env('HCAPTCHA_SITE_KEY');
         return view('page_web.kontak.index', compact('profil', 'hcaptchaSiteKey'));
     }
 
