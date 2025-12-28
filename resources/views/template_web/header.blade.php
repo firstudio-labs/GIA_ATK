@@ -125,6 +125,13 @@
                             </div>
                         </a>
                     </div>
+                    <div class="logo_menu">
+                        <a href="https://giaprint.id/" class="active">
+                            <div class="icon bar" style="margin-left: 10px;">
+                                <img src="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" alt="{{ $profil->nama_perusahaan ?? 'Logo' }}" style="max-height: 40px;">
+                            </div>
+                        </a>
+                    </div>
                     <ul class="category ul_li">
                         @foreach($kategoris->take(6) as $kategori)
                             <li>
@@ -143,6 +150,7 @@
                         @endif
                     </ul>
                 </div>
+                
                 <div class="login-sign-btn">
                     @auth
                         <a class="thm-btn" href="{{ route('profil') }}">
