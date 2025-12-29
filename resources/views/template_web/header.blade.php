@@ -125,7 +125,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="logo_menu">
+                    <div class="logo_menu d-lg-none">
                         <a href="https://giaprint.id/" class="active">
                             <div class="icon bar" style="margin-left: 10px;">
                                 <img src="{{ asset('upload/profil/' . $profil->logo_perusahaan) }}" alt="{{ $profil->nama_perusahaan ?? 'Logo' }}" style="max-height: 40px;">

@@ -1,6 +1,6 @@
 @extends('template_web.layout')
 @section('content')
-    @include('template_web.popup')
+@include('template_web.popup')
 
     <main>
 
@@ -12,52 +12,52 @@
                         <div class="row align-items-center flex-row-reverse mt-none-30">
                             <div class="col-lg-7 mt-30">
                                 @if ($bestProduct->isNotEmpty())
-                                    <div class="hero__product">
-                                        <div class="hero__product-wrap">
-                                            <div class="hero__product-carousel">
+                                <div class="hero__product">
+                                    <div class="hero__product-wrap">
+                                        <div class="hero__product-carousel">
                                                 @foreach ($bestProduct->take(5) as $produk)
-                                                    @php
+                                                @php
                                                         $gambarProduk =
                                                             is_array($produk->gambar_produk) &&
                                                             !empty($produk->gambar_produk)
-                                                                ? asset('produk/gambar/' . $produk->gambar_produk[0])
-                                                                : asset('web/assets/img/product/img_52.png');
-                                                    @endphp
-                                                    <div class="hero__product-item">
+                                                        ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
+                                                        : asset('web/assets/img/product/img_52.png');
+                                                @endphp
+                                                <div class="hero__product-item">
                                                         <img src="{{ $gambarProduk }}" alt="{{ $produk->judul }}"
                                                             style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1;">
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                            <div class="hero__product-carousel-nav">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="hero__product-carousel-nav">
                                                 @foreach ($bestProduct->take(5) as $produk)
-                                                    @php
+                                                @php
                                                         $gambarProduk =
                                                             is_array($produk->gambar_produk) &&
                                                             !empty($produk->gambar_produk)
-                                                                ? asset('produk/gambar/' . $produk->gambar_produk[0])
-                                                                : asset('web/assets/img/product/img_52.png');
-                                                    @endphp
-                                                    <div class="hero__product-item-nav">
-                                                        <div class="image">
+                                                        ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
+                                                        : asset('web/assets/img/product/img_52.png');
+                                                @endphp
+                                                <div class="hero__product-item-nav">
+                                                    <div class="image">
                                                             <img src="{{ $gambarProduk }}" alt="{{ $produk->judul }}"
                                                                 style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1;">
-                                                        </div>
                                                     </div>
-                                                @endforeach
-                                            </div>
-                                            @php
-                                                $bestProductSection = $sections->get('Best Product');
-                                            @endphp
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        @php
+                                            $bestProductSection = $sections->get('Best Product');
+                                        @endphp
                                             @if ($bestProductSection && $bestProductSection->discount_percentage > 0)
-                                                <span class="hero__product-offer">
+                                        <span class="hero__product-offer">
                                                     <span
                                                         class="discount">{{ $bestProductSection->discount_percentage }}<span>%</span></span>
-                                                    <span>off</span>
-                                                </span>
-                                            @endif
-                                        </div>
+                                            <span>off</span>
+                                        </span>
+                                        @endif
                                     </div>
+                                </div>
                                 @endif
                             </div>
                             <div class="col-lg-5 mt-30">
@@ -96,7 +96,7 @@
                                             <div class="progress-bar" role="progressbar" style="width: 50%"
                                                 aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-
+                                       
                                     </div>
                                     <a class="hero__btn"
                                         href="{{ $bestProduct->isNotEmpty() ? route('shop.detail', $bestProduct->first()->slug) : route('shop') }}">Beli
@@ -116,8 +116,8 @@
                                     @php
                                         $gambarProduk =
                                             is_array($produk->gambar_produk) && !empty($produk->gambar_produk)
-                                                ? asset('produk/gambar/' . $produk->gambar_produk[0])
-                                                : asset('web/assets/img/product/img_55.png');
+                                            ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
+                                            : asset('web/assets/img/product/img_55.png');
                                         // Gunakan discount_percentage dari section jika ada, jika tidak gunakan diskon produk
                                         $diskonValue = 0;
                                         if ($topProdukSection && $topProdukSection->discount_percentage > 0) {
@@ -254,8 +254,8 @@
                                     @php
                                         $gambarProduk =
                                             is_array($produk->gambar_produk) && !empty($produk->gambar_produk)
-                                                ? asset('produk/gambar/' . $produk->gambar_produk[0])
-                                                : asset('web/assets/img/product/img_01.png');
+                                            ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
+                                            : asset('web/assets/img/product/img_01.png');
                                         $diskonValue = 0;
                                         if ($recentSection && $recentSection->discount_percentage > 0) {
                                             $diskonValue = $recentSection->discount_percentage;
@@ -311,8 +311,8 @@
                                     @php
                                         $gambarProduk =
                                             is_array($produk->gambar_produk) && !empty($produk->gambar_produk)
-                                                ? asset('produk/gambar/' . $produk->gambar_produk[0])
-                                                : asset('web/assets/img/product/img_01.png');
+                                            ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
+                                            : asset('web/assets/img/product/img_01.png');
                                         $diskonValue = 0;
                                         if ($bestSellerSection && $bestSellerSection->discount_percentage > 0) {
                                             $diskonValue = $bestSellerSection->discount_percentage;
@@ -373,8 +373,8 @@
                                     @php
                                         $gambarProduk =
                                             is_array($produk->gambar_produk) && !empty($produk->gambar_produk)
-                                                ? asset('produk/gambar/' . $produk->gambar_produk[0])
-                                                : asset('web/assets/img/product/img_01.png');
+                                            ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
+                                            : asset('web/assets/img/product/img_01.png');
                                         $diskonValue = 0;
                                         if ($topSection && $topSection->discount_percentage > 0) {
                                             $diskonValue = $topSection->discount_percentage;
@@ -435,8 +435,8 @@
                                     @php
                                         $gambarProduk =
                                             is_array($produk->gambar_produk) && !empty($produk->gambar_produk)
-                                                ? asset('produk/gambar/' . $produk->gambar_produk[0])
-                                                : asset('web/assets/img/product/img_01.png');
+                                            ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
+                                            : asset('web/assets/img/product/img_01.png');
                                         $diskonValue = 0;
                                         if ($topRatingSection && $topRatingSection->discount_percentage > 0) {
                                             $diskonValue = $topRatingSection->discount_percentage;
@@ -511,7 +511,7 @@
                                     <li class="{{ $hasChildren ? 'cat-item-has-children' : '' }}">
                                         <a
                                             href="{{ route('shop', ['kategori' => $kategori->id]) }}">{{ $kategori->nama_kategori }}</a>
-                                        <!-- <img src="{{ $iconPath }}" alt="{{ $kategori->nama_kategori }}"> -->
+                                            <!-- <img src="{{ $iconPath }}" alt="{{ $kategori->nama_kategori }}"> -->
                                     </li>
                                 @empty
                                     <li><a href="{{ route('shop') }}">Tidak ada kategori</a></li>
@@ -537,8 +537,8 @@
                                             @php
                                                 $gambarProduk =
                                                     is_array($produk->gambar_produk) && !empty($produk->gambar_produk)
-                                                        ? asset('produk/gambar/' . $produk->gambar_produk[0])
-                                                        : asset('web/assets/img/product/img_07.png');
+                                                    ? asset('produk/gambar/' . $produk->gambar_produk[0]) 
+                                                    : asset('web/assets/img/product/img_07.png');
                                                 $hargaDiskon =
                                                     $produk->diskon > 0
                                                         ? $produk->harga - ($produk->harga * $produk->diskon) / 100
@@ -550,7 +550,7 @@
                                                     style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 20px; background: #f8f9fa; border-bottom: 1px solid #e9ecef;">
                                                     <a href="{{ route('shop.detail', $produk->slug) }}" style="display: block; width: 100%; height: 100%;">
                                                         <img src="{{ $gambarProduk }}" alt="{{ $produk->judul }}"
-                                                            class="img-fluid"
+                                                            class="img-fluid" 
                                                             style="width: 150px; height: 150px; object-fit: cover; aspect-ratio: 1/1; border-radius: 6px; display: block; margin: 0 auto;">
                                                     </a>
                                                 </div>
@@ -589,9 +589,9 @@
         </div>
         <!-- rd slide product end -->
 
+      
 
-
-
+      
 
     </main>
 @endsection
