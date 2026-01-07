@@ -81,7 +81,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @forelse($pesanans as $e => $pesanan)
+                    @foreach($pesanans as $e => $pesanan)
                     <tr>
                       <td>{{ ($pesanans->currentPage() - 1) * $pesanans->perPage() + $e + 1 }}</td>
                       <td><strong>{{ $pesanan->order_id }}</strong></td>
@@ -109,11 +109,7 @@
                         </a>
                       </td>
                     </tr>
-                    @empty
-                    <tr>
-                      <td colspan="10" class="text-center">Tidak ada data pesanan</td>
-                    </tr>
-                    @endforelse
+                    @endforeach
                   </tbody>
                   <tfoot>
                     <tr>
@@ -150,13 +146,7 @@
 @section('script')
   <script>
     $(document).ready(function() {
-      $('#simpletable').DataTable({
-        "paging": false,
-        "searching": false,
-        "info": false,
-        "ordering": true,
-        "order": [[4, "desc"]]
-      });
+      $('#simpletable').DataTable();
     });
   </script>
 @endsection
