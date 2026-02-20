@@ -168,13 +168,12 @@
         <!-- hero end -->
 
         <!-- feature start -->
-        <div class="feature pt-40 pb-30">
+        <!-- <div class="feature pt-40 pb-30">
             <div class="container">
                 <div class="feature__wrap ul_li">
                     <div class="feature__item ul_li">
                         <div class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-                                <!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com/ License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
                                 <path fill="#ff8717"
                                     d="M80 104c0-22.1-17.9-40-40-40S0 81.9 0 104L0 325.5c0 25.5 10.1 49.9 28.1 67.9L128 493.3c12 12 28.3 18.7 45.3 18.7l66.7 0c26.5 0 48-21.5 48-48l0-78.9c0-29.7-11.8-58.2-32.8-79.2l-25.3-25.3 0 0c-7.3-7.3-23.1-23.1-47.2-47.2-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3c24.1 24.1 39.9 39.9 47.2 47.2 11 11 9.2 29.2-3.7 37.8-9.7 6.5-22.7 5.2-31-3.1L98.7 309.5c-12-12-18.7-28.3-18.7-45.3L80 104zm480 0l0 160.2c0 17-6.7 33.3-18.7 45.3l-51.1 51.1c-8.3 8.3-21.3 9.6-31 3.1-12.9-8.6-14.7-26.9-3.7-37.8 7.3-7.3 23.1-23.1 47.2-47.2 12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-24.1 24.1-39.9 39.9-47.2 47.2l0 0-25.3 25.3c-21 21-32.8 49.5-32.8 79.2l0 78.9c0 26.5 21.5 48 48 48l66.7 0c17 0 33.3-6.7 45.3-18.7l99.9-99.9c18-18 28.1-42.4 28.1-67.9L640 104c0-22.1-17.9-40-40-40s-40 17.9-40 40z" />
                             </svg>
@@ -186,8 +185,7 @@
                     </div>
                     <div class="feature__item ul_li">
                         <div class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <path fill="#ff8717"
                                     d="M80 160c17.7 0 32 14.3 32 32l0 256c0 17.7-14.3 32-32 32l-48 0c-17.7 0-32-14.3-32-32L0 192c0-17.7 14.3-32 32-32l48 0zM270.6 16C297.9 16 320 38.1 320 65.4l0 4.2c0 6.8-1.3 13.6-3.8 19.9L288 160 448 160c26.5 0 48 21.5 48 48 0 19.7-11.9 36.6-28.9 44 17 7.4 28.9 24.3 28.9 44 0 23.4-16.8 42.9-39 47.1 4.4 7.3 7 15.8 7 24.9 0 22.2-15 40.8-35.4 46.3 2.2 5.5 3.4 11.5 3.4 17.7 0 26.5-21.5 48-48 48l-87.9 0c-36.3 0-71.6-12.4-99.9-35.1L184 435.2c-15.2-12.1-24-30.5-24-50l0-186.6c0-14.9 3.5-29.6 10.1-42.9L226.3 43.3C234.7 26.6 251.8 16 270.6 16z" />
                             </svg>
@@ -199,8 +197,7 @@
                     </div>
                     <div class="feature__item ul_li">
                         <div class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 448 512"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                 <path fill="#ff8717"
                                     d="M168.5 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l32 0 0 25.3c-108 11.9-192 103.5-192 214.7 0 119.3 96.7 216 216 216s216-96.7 216-216c0-39.8-10.8-77.1-29.6-109.2l28.2-28.2c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-23.4 23.4c-32.9-30.2-75.2-50.3-122-55.5l0-25.3 32 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-112 0zm80 184l0 104c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-104c0-13.3 10.7-24 24-24s24 10.7 24 24z" />
                             </svg>
@@ -212,7 +209,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- feature end -->
 
         <!-- tab product start -->
